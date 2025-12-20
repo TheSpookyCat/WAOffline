@@ -57,7 +57,7 @@ jobs:
           $managed = Resolve-Path "StrippedAndPublicizedAssemblies\UnityClient@Windows_Data\Managed"
 
           Invoke-WebRequest `
-            -Uri "https://api.github.com/repos/TheSpookyCat/WorldsBuild/zipball/main" `
+            -Uri "https://api.github.com/repos/TheSpookyCat/WorldsBuild/zipball/master" `
             -Headers $headers `
             -OutFile $zip
 
