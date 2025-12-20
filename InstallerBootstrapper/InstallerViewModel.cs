@@ -372,7 +372,6 @@ public sealed class InstallerViewModel : INotifyPropertyChanged
             AppendStatusLine($"Install failed: {ex.Message}");
             CurrentStep = "Failed";
             CanRetry = true;
-            await File.AppendAllTextAsync("oops.txt", ex.Message + "\n" + ex.StackTrace + "\n");
         }
         finally
         {
@@ -476,8 +475,6 @@ public sealed class InstallerViewModel : INotifyPropertyChanged
         {
             ProgressPercent = Math.Max(ProgressPercent, percent.Value);
         }
-        
-        File.AppendAllText("oops.txt", line + "\n");
     }
 
     private static double? ExtractPercent(string line)
@@ -745,27 +742,46 @@ public sealed class InstallerViewModel : INotifyPropertyChanged
         var clientManaged = Path.Combine(InstallPath, "UnityClient@Windows_Data", "Managed");
         var serverDir = Path.Combine(InstallPath, "GameServer");
 
-        if (!Directory.Exists(clientManaged))
-            throw new DirectoryNotFoundException(clientManaged);
-
-        if (!Directory.Exists(serverDir))
-            throw new DirectoryNotFoundException(serverDir);
-
-        var replaced = 0;
-
-        foreach (var serverDll in Directory.EnumerateFiles(serverDir, "*.dll", SearchOption.TopDirectoryOnly))
+        string[] dlls =
         {
-            var name = Path.GetFileName(serverDll);
-            var clientDll = Path.Combine(clientManaged, name);
+            "Improbable.WorkerSdkCsharp.dll",
+            "Improbable.WorkerSdkCsharp.Framework.dll",
+            "Generated.Code.dll",
+            "protobuf-net.dll",
 
-            if (!File.Exists(clientDll))
+            "Microsoft.Win32.SystemEvents.dll",
+            "Mono.Messaging.dll",
+            "Mono.Security.dll",
+            "System.Configuration.ConfigurationManager.dll",
+            "System.Configuration.Install.dll",
+            "System.Drawing.Common.dll",
+            "System.EnterpriseServices.dll",
+            "System.IdentityModel.dll",
+            "System.IdentityModel.Selectors.dll",
+            "System.Messaging.dll",
+            "System.Security.Cryptography.ProtectedData.dll",
+            "System.Security.Permissions.dll",
+            "System.ServiceModel.dll",
+            "System.Web.Services.dll",
+            "System.Windows.Extensions.dll"
+        };
+
+        foreach (var dll in dlls)
+        {
+            var src = Path.Combine(clientManaged, dll);
+            var dst = Path.Combine(serverDir, dll);
+
+            if (!File.Exists(src))
+            {
+                // AppendStatusLine($"Skipped: {src}");
                 continue;
+            }
+            AppendStatusLine($"Copied: {src}");
 
-            File.Copy(clientDll, serverDll, overwrite: true);
-            replaced++;
+            File.Copy(src, dst, overwrite: true);
         }
 
-        AppendStatusLine($"Synchronized {replaced} GameServer DLLs from client Managed folder");
+        AppendStatusLine("Synchronized GameServer DLLs");
     }
 
     private async Task DeployServersAsync()
