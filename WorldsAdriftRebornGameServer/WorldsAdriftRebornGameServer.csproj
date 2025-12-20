@@ -24,15 +24,19 @@
   <ItemGroup>
     <Reference Include="Generated.Code">
       <HintPath>$(WorldsAdriftGameDir)\UnityClient@Windows_Data\Managed\Generated.Code.dll</HintPath>
+        <Private>false</Private>
     </Reference>
     <Reference Include="Improbable.WorkerSdkCsharp">
       <HintPath>$(WorldsAdriftGameDir)\UnityClient@Windows_Data\Managed\Improbable.WorkerSdkCsharp.dll</HintPath>
+        <Private>false</Private>
     </Reference>
     <Reference Include="Improbable.WorkerSdkCsharp.Framework">
       <HintPath>$(WorldsAdriftGameDir)\UnityClient@Windows_Data\Managed\Improbable.WorkerSdkCsharp.Framework.dll</HintPath>
+        <Private>false</Private>
     </Reference>
     <Reference Include="protobuf-net">
       <HintPath>$(WorldsAdriftGameDir)\UnityClient@Windows_Data\Managed\protobuf-net.dll</HintPath>
+        <Private>false</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

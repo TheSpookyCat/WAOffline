@@ -44,6 +44,34 @@ jobs:
           $element.InnerText = (Resolve-Path "StrippedAndPublicizedAssemblies\")
           $xml.Save($filePathToTask)
           Get-Content $filePathToTask
+          
+      - name: Download real assemblies from private repo
+        run: |
+          $headers = @{
+            Authorization = "Bearer $env:WORLD_BUILD_TOKEN"
+            Accept = "application/vnd.github+json"
+          }
+
+          $zip = "real_dlls.zip"
+          $tmp = "real_dlls_tmp"
+          $managed = Resolve-Path "StrippedAndPublicizedAssemblies\UnityClient@Windows_Data\Managed"
+
+          Invoke-WebRequest `
+            -Uri "https://api.github.com/repos/TheSpookyCat/WorldsBuild/zipball/main" `
+            -Headers $headers `
+            -OutFile $zip
+
+          Expand-Archive $zip $tmp -Force
+
+          # GitHub zipballs always have a single top-level folder
+          $root = Get-ChildItem $tmp | Select-Object -First 1
+
+          Copy-Item "$($root.FullName)\*" $managed -Recurse -Force
+
+          Remove-Item $zip -Force
+          Remove-Item $tmp -Recurse -Force
+        env:
+          WORLD_BUILD_TOKEN: ${{ secrets.WORLD_BUILD_TOKEN }}
 
       - name: Restore NuGet packages
         working-directory: ${{env.GITHUB_WORKSPACE}}
