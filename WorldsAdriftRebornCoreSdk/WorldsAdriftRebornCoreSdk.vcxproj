@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\WorldsAdriftReborn-protobuf-x64-windows-static-md.1.0.0\build\native\WorldsAdriftReborn-protobuf-x64-windows-static-md.props" Condition="Exists('..\packages\WorldsAdriftReborn-protobuf-x64-windows-static-md.1.0.0\build\native\WorldsAdriftReborn-protobuf-x64-windows-static-md.props')" />
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AddComponentOp.pb.h" />
+    <ClInclude Include="AddEntityOp.pb.h" />
+    <ClInclude Include="AssetLoadRequestOp.pb.h" />
+    <ClInclude Include="AuthorityChangeOp.pb.h" />
+    <ClInclude Include="Callbacks.h" />
+    <ClInclude Include="ComponentUpdateOp.pb.h" />
+    <ClInclude Include="Connection.h" />
+    <ClInclude Include="ConnectionFuture.h" />
+    <ClInclude Include="DeploymentListFuture.h" />
+    <ClInclude Include="Dispatcher.h" />
+    <ClInclude Include="enetLayer.h" />
+    <ClInclude Include="enet\include\enet\callbacks.h" />
+    <ClInclude Include="enet\include\enet\enet.h" />
+    <ClInclude Include="enet\include\enet\list.h" />
+    <ClInclude Include="enet\include\enet\protocol.h" />
+    <ClInclude Include="enet\include\enet\time.h" />
+    <ClInclude Include="enet\include\enet\types.h" />
+    <ClInclude Include="enet\include\enet\unix.h" />
+    <ClInclude Include="enet\include\enet\utility.h" />
+    <ClInclude Include="enet\include\enet\win32.h" />
+    <ClInclude Include="Exports.h" />
+    <ClInclude Include="Locator.h" />
+    <ClInclude Include="Logger.h" />
+    <ClInclude Include="OpList.h" />
+    <ClInclude Include="SendComponentInterest.pb.h" />
+    <ClInclude Include="Structs.h" />
+    <ClInclude Include="VTable.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AddComponentOp.pb.cc" />
+    <ClCompile Include="AddEntityOp.pb.cc" />
+    <ClCompile Include="AssetLoadRequestOp.pb.cc" />
+    <ClCompile Include="AuthorityChangeOp.pb.cc" />
+    <ClCompile Include="ComponentUpdateOp.pb.cc" />
+    <ClCompile Include="Connection.cpp" />
+    <ClCompile Include="ConnectionFuture.cpp" />
+    <ClCompile Include="DeploymentListFuture.cpp" />
+    <ClCompile Include="Dispatcher.cpp" />
+    <ClCompile Include="enetLayer.cpp" />
+    <ClCompile Include="enet\callbacks.c" />
+    <ClCompile Include="enet\compress.c" />
+    <ClCompile Include="enet\host.c" />
+    <ClCompile Include="enet\list.c" />
+    <ClCompile Include="enet\packet.c" />
+    <ClCompile Include="enet\peer.c" />
+    <ClCompile Include="enet\protocol.c" />
+    <ClCompile Include="enet\unix.c" />
+    <ClCompile Include="enet\win32.c" />
+    <ClCompile Include="Exports.cpp" />
+    <ClCompile Include="Locator.cpp" />
+    <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="SendComponentInterest.pb.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="WorldsAdriftRebornCoreSdk.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="proto.targets" />
+    <Proto Include="AddComponentOp.proto">
+      <FileType>Document</FileType>
+    </Proto>
+    <Proto Include="AddEntityOp.proto">
+      <FileType>Document</FileType>
+    </Proto>
+    <Proto Include="AssetLoadRequestOp.proto">
+      <FileType>Document</FileType>
+    </Proto>
+    <Proto Include="AuthorityChangeOp.proto" />
+    <Proto Include="ComponentUpdateOp.proto" />
+    <Proto Include="SendComponentInterest.proto">
+      <FileType>Document</FileType>
+    </Proto>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="proto.xml" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{835a10a8-d040-4707-bed5-197164c4f520}</ProjectGuid>
+    <RootNamespace>WorldsAdriftRebornCoreSdk</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>CoreSdkDll</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>CoreSdkDll</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>CoreSdkDll</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <TargetName>CoreSdkDll</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <VcpkgUseStatic>true</VcpkgUseStatic>
+    <VcpkgUseMD>true</VcpkgUseMD>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <VcpkgUseStatic>true</VcpkgUseStatic>
+    <VcpkgUseMD>true</VcpkgUseMD>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <VcpkgUseStatic>true</VcpkgUseStatic>
+    <VcpkgUseMD>true</VcpkgUseMD>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <VcpkgUseStatic>true</VcpkgUseStatic>
+    <VcpkgUseMD>true</VcpkgUseMD>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;WORLDSADRIFTREBORNCORESDK_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir)\enet\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);Ws2_32.lib;winmm.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;WORLDSADRIFTREBORNCORESDK_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir)\enet\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);Ws2_32.lib;winmm.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;WORLDSADRIFTREBORNCORESDK_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)\\enet\\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);Ws2_32.lib;winmm.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;WORLDSADRIFTREBORNCORESDK_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir)\enet\include</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);ws2_32.lib;winmm.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="proto.targets" />
+    <Import Project="..\packages\WorldsAdriftReborn-protobuf-x64-windows-static-md.1.0.0\build\native\WorldsAdriftReborn-protobuf-x64-windows-static-md.targets" Condition="Exists('..\packages\WorldsAdriftReborn-protobuf-x64-windows-static-md.1.0.0\build\native\WorldsAdriftReborn-protobuf-x64-windows-static-md.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\WorldsAdriftReborn-protobuf-x64-windows-static-md.1.0.0\build\native\WorldsAdriftReborn-protobuf-x64-windows-static-md.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WorldsAdriftReborn-protobuf-x64-windows-static-md.1.0.0\build\native\WorldsAdriftReborn-protobuf-x64-windows-static-md.props'))" />
+    <Error Condition="!Exists('..\packages\WorldsAdriftReborn-protobuf-x64-windows-static-md.1.0.0\build\native\WorldsAdriftReborn-protobuf-x64-windows-static-md.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WorldsAdriftReborn-protobuf-x64-windows-static-md.1.0.0\build\native\WorldsAdriftReborn-protobuf-x64-windows-static-md.targets'))" />
+  </Target>
+</Project>
