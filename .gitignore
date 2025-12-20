@@ -3,6 +3,11 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Installer Specifics
+bin/
+obj/
+*.DS_Store
+InstallerPayloads/
 # Dev Install Location
 .installation
 # User-specific files

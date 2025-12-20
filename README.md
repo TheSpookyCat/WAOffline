@@ -1,64 +1,70 @@
-# WorldsAdriftReborn
+## Introduction
 
-# About
-Worlds Adrift Reborn is a community made mod in an attempt to revive the Worlds Adrift game with a Dedicated server option.
-This means anyone would be able to host his/her own server and let other people join in.
+**Worlds Adrift: Offline** is a player-focused distribution of the current playable state of **Worlds Adrift: Reborn**, packaged with an installer and launcher for easy local play.
 
-# Current state
-As you might guessed this is a very ambitious project. The game heavily relies on proprietary code for its networking (SpatialOS) and we need to replace it with our own implementation.
-We can't say for sure if this project will succeed but we will do our best for it.
+It is based on the Reborn project but released separately to make the game immediately accessible without MMO infrastructure or dedicated servers. While **Worlds Adrift: Reborn** continues to focus on long-term multiplayer restoration, **Offline** exists to let players jump in and play right now.
+The project is maintained independently, with a clean commit history to support its narrower scope and simpler release model.
 
+## Details
 
+The current version allows you to:
+- Explore the entire game world as it existed at shutdown
+- Use the glider
+- Interact with basic entities and items
 
-## Boot the game
-The Game cannot be purchased anymore so we patched out the need to have steam running (for now) as well as a few other checks made when the game starts.
-This way we can reach the main menu.
+This project does **not** aim to recreate the MMO experience, shared worlds, or live services. Its purpose is to preserve the feel of Worlds Adrift in a form that is easy to install, run, and maintain for local play.
 
-We use [BepInEx](https://github.com/BepInEx/BepInEx) and [Harmony](https://github.com/pardeike/Harmony) to patch the game at runtime, you can find the mod project [here](https://github.com/sp00ktober/WorldsAdriftReborn/tree/main/WorldsAdriftReborn)
+⚠ **Security notice**  
+Always scan files downloaded from the internet for viruses.  
+The full source code and build process are public and can be reviewed, but you are encouraged to verify anything you download.
 
-## Main Menu
-The game communicates with a HTTP REST server when you perform actions in the main menu. This is the "WorldsAdriftServer" project that you can find [here](https://github.com/sp00ktober/WorldsAdriftReborn/tree/main/WorldsAdriftServer)
-So far you can get to the character creation screen and choose one of the hardcoded characters to enter the game.
+### Installation steps
 
-## In Game
-After the intro video the game usually bootstraps its SpatialOs networking. To replace it with our own implementation we made a C++ project that you can find [here](https://github.com/sp00ktober/WorldsAdriftReborn/tree/main/WorldsAdriftRebornCoreSdk).
-This will compile into a .dll which you use to replace the original one.
+1. Go to the **Releases** tab of this repository.
 
-Our implementation offers the same methods as SpatialOs does. This means the game still thinks its talking to the SpatialOs dll while it is in fact calling our own methods. This will allow us to implement our own networking.
+2. Download the installer & launcher archive:
+    - `XXYYZZ-Release.zip`
 
-At the moment we can instruct the game to load and spawn entities this way, the next thing will be to add and update their components to get a similar result as the one you see in the last video found [here](https://www.youtube.com/watch?v=IWKu2Olw0rc)
+3. Extract the archive and place the launcher executable in a **dedicated folder** of your choosing.
+    - The location does not matter.
+    - You must keep this folder if you want to launch the game again later.
 
-## Installation and launching the game using the precompiled binaries
-First you will need the correct version of the game. Get a copy of [DepotDownloader](https://github.com/SteamRE/DepotDownloader) and run `DepotDownloader.exe -app 322780 -depot 322783 -manifest 4624240741051053915 -username <yourusername> -password <yourpassword>`
-Which will download the correct game files. Copy the files over to the gameroot folder.  
-⚠ Note that the most up to date steam version of the game is **Not** supported! 
-This is due to the game having been stripped of most of its contents in and update just before the game's shutdown.
+4. Run the launcher.
+    - Accept any Windows SmartScreen warnings if prompted.
 
-Next download the latest 5.x [BepInEx Release](https://github.com/BepInEx/BepInEx/releases) and unzip those files into gameroot (detailed installation instructions can be found [here](https://docs.bepinex.dev/articles/user_guide/installation/index.html)).
+5. In the launcher:
+    - Select a folder where the game should be installed.
+    - Enter your **Steam username** (this is the username you use to log in to Steam, not your display name).
 
-Also create a `steam_appid.txt` file in the gameroot which contains a single line `322780` (this is the appid and is required to start the game, else you get a steam required error).
+6. Click **Begin Installation**.
 
-Next download the latest bleeding-edge release, you can find this on the [releases](https://github.com/sp00ktober/WorldsAdriftReborn/releases) page of the repo.
-Download the WorldsAdriftReborn-Release.zip and extract its content to a folder of your choosing.
+7. A console window will open requesting your Steam credentials.
+    - This is **DepotDownloader**.
+    - Your Steam password is **not stored**.
+    - It is used only to download the correct version of the game.
+    - You will be prompted for a Steam Guard code or asked to approve the login via the Steam mobile authenticator.
+    - **Steam must be completely closed** while the download is in progress. This also applies to any other machines logged into your account such as a 2nd PC or Steam Deck.
 
-Inside the folder you extracted the zip into you will find 3 folders:
-- WorldsAdriftReborn
-- WorldsAdriftRebornGameServer
-- WorldsAdriftRebornServer
+8. Once the process completes:
+    - The game files will be downloaded.
+    - Required mods and backend components will be installed automatically.
+    - Click **Launch** to start the game.
 
-Copy or move the WorldsAdriftReborn directory into you `<game root>\BepInEx\plugins` folder.
+### Runtime notes
 
-To launch the game follow the following steps:
-Go into the WorldsAdriftRebornGameServer folder and launch the `WorldsAdriftRebornGameServer.exe`
-Go into the WorldsAdriftRebornServer folder and launch the `WorldsAdriftRebornServer.exe`
-⚠ Temporarily you will also need to replace the `Improbable.WorkerSdkCsharp.dll`, `Improbable.WorkerSdkCsharp.Framework.dll`, `Generated.Code.dll` and `protobuf-net.dll` in the WorldsAdriftRebornGameServer folder with the ones found in the `<game root>\UnityClient@Windows_Data\Managed` folder!
-This will be fixed in future releases.
-Launch the game from the gameroot
+- When launching the game, **two console windows** will appear.
+  These are backend services required for the game to function.
+- **Do not** close these windows manually.
+  Closing them will result in bugs & crashes.
+- To exit safely:
+    - Use the **Close** button in the launcher, **or**
+    - Close the main game window.
+      The remaining processes will shut down automatically.
 
 ## Build Instructions
 First you will need the correct version of the game. Get a copy of [DepotDownloader](https://github.com/SteamRE/DepotDownloader) and run `DepotDownloader.exe -app 322780 -depot 322783 -manifest 4624240741051053915 -username <yourusername> -password <yourpassword>`
 Which will download the correct game files. Copy the files over to the gameroot folder.  
-⚠ Note that the most up to date steam version of the game is **Not** supported! 
+⚠ Note that the most up to date steam version of the game is **Not** supported!
 This is due to the game having been stripped of most of its contents in and update just before the game's shutdown.
 
 Clone the repository including submodules using `git clone --recurse-submodules <repository>`
@@ -73,23 +79,23 @@ Now open up the project sln with Visual Studio 2022 (⚠ Lower versions of Visua
 
 Rider (JetBrains C# IDE) can open and build the solution as well. You just need to create an empty `LocalPackages` subdirectory inside the solution folder.
 
-If your game installation is not at the default location (`C:\Program Files (x86)\Steam\steamapps\common\WorldsAdrift`) visual studio will report an error and a DevEnv.targets file should have been generated at the root of your copy of the WorldsAdriftReborn repo. 
+If your game installation is not at the default location (`C:\Program Files (x86)\Steam\steamapps\common\WorldsAdrift`) visual studio will report an error and a DevEnv.targets file should have been generated at the root of your copy of the WorldsAdriftReborn repo.
 You can change the path to your game installation location, save and reopen the project sln with visual studio.
 
-Building the [WorldsAdriftReborn](https://github.com/sp00ktober/WorldsAdriftReborn/tree/main/WorldsAdriftReborn) mod will automatically build the required [WorldsAdriftRebornCoreSdk](https://github.com/sp00ktober/WorldsAdriftReborn/tree/main/WorldsAdriftRebornCoreSdk) CoreSdkDll.dll and copies this and the built BepInEx WorldsAdriftReborn plugin to the BepInEx plugins directory of your game. 
+Building the [WorldsAdriftReborn](https://github.com/sp00ktober/WorldsAdriftReborn/tree/main/WorldsAdriftReborn) mod will automatically build the required [WorldsAdriftRebornCoreSdk](https://github.com/sp00ktober/WorldsAdriftReborn/tree/main/WorldsAdriftRebornCoreSdk) CoreSdkDll.dll and copies this and the built BepInEx WorldsAdriftReborn plugin to the BepInEx plugins directory of your game.
 It will also give an error if you try to build WorldsAdriftReborn for an an incompatible version of the game.
 
 Running the game locally requires you to build all projects in the solution, and subsequently starting the required servers and game:
-- Start the [WorldsAdriftGameServer](https://github.com/sp00ktober/WorldsAdriftReborn/tree/main/WorldsAdriftGameServer) 
+- Start the [WorldsAdriftGameServer](https://github.com/sp00ktober/WorldsAdriftReborn/tree/main/WorldsAdriftGameServer)
 - Start the [WorldsAdriftServer](https://github.com/sp00ktober/WorldsAdriftReborn/tree/main/WorldsAdriftServer).
 - And then start the game.
 
-The projects also includes launch configurations for the WorldsAdriftReborn, WorldsAdriftGameServer and WorldsAdriftServer the projects. 
+The projects also includes launch configurations for the WorldsAdriftReborn, WorldsAdriftGameServer and WorldsAdriftServer the projects.
 The launch configuration for WorldsAdriftReborn will launch the game itself (⚠ when launching worlds adrift through visual studio you have to make sure you launch the game without debugging).
 You can launch everything at once by configuring the solution for Multiple Startup projects.
 
 ## Updating protobuf
-At the moment the WorldsAdriftRebornCoreSdk is dependant on protobuf, in order to keep the project portable and not require and external package managers (vcpkg) we opted to include a build and publish nuget package.
+At the moment the WorldsAdriftRebornCoreSdk is dependent on protobuf, in order to keep the project portable and not require and external package managers (vcpkg) we opted to include a build and publish nuget package.
 
 This nuget package was exported by vcpkg using the `vcpkg export protobuf:x64-windows-static-md --nuget --nuget-id=WorldsAdriftReborn-protobuf-x64-windows-static-md` option of vcpkg ( see https://devblogs.microsoft.com/cppblog/vcpkg-introducing-export-command/ for more info).
 And released on nuget as https://www.nuget.org/packages/WorldsAdriftReborn-protobuf-x64-windows-static-md/ .
@@ -98,7 +104,7 @@ The package can be updated by going to your locally installed vcpkg installation
 reinstall them using the `vcpkg install protobuf:x64-windows protobuf:x64-windows-static protobuf:x64-windows-static-md` and subsequently running the aforementioned the export command again.
 This will generate a new package for you, which you can then upload to nuget, and update through the nuget package manager.
 
-For testing purposes, you can also (instead of uploading the package to nuget) locally load an exported nuget package by placing the exported .nupkg in the LocalPackages folder of the repo, 
+For testing purposes, you can also (instead of uploading the package to nuget) locally load an exported nuget package by placing the exported .nupkg in the LocalPackages folder of the repo,
 this will make it appear in the LocalPackages package source in the nuget package manager.
 
 Aside from https://www.nuget.org/packages/WorldsAdriftReborn-protobuf-x64-windows-static-md/ we also provide the https://www.nuget.org/packages/WorldsAdriftReborn-protobuf-x64-windows-static/ and https://www.nuget.org/packages/WorldsAdriftReborn-protobuf-x64-windows/ variants.  
@@ -110,4 +116,4 @@ You can switch linking modes by going to the WorldsAdriftRebornCoreSdk project p
 - (Current default) vcpkg > Use static libraries > Yes / vcpkg > Use Use Dynamic CRT > Yes / C/C++ > Code Generation > Runtime Library: MDd (default): This will static link everything, resulting in a single output DLL. (requires https://www.nuget.org/packages/WorldsAdriftReborn-protobuf-x64-windows-static-md/ )
 
 # Contact us
-Any support is welcome! You can find us on [Discord](https://discord.gg/pSrfna7NDx)
+Any support is welcome - you can [find us on Discord](https://discord.gg/pSrfna7NDx)!
