@@ -745,24 +745,27 @@ public sealed class InstallerViewModel : INotifyPropertyChanged
         var clientManaged = Path.Combine(InstallPath, "UnityClient@Windows_Data", "Managed");
         var serverDir = Path.Combine(InstallPath, "GameServer");
 
-        string[] dlls =
+        if (!Directory.Exists(clientManaged))
+            throw new DirectoryNotFoundException(clientManaged);
+
+        if (!Directory.Exists(serverDir))
+            throw new DirectoryNotFoundException(serverDir);
+
+        var replaced = 0;
+
+        foreach (var serverDll in Directory.EnumerateFiles(serverDir, "*.dll", SearchOption.TopDirectoryOnly))
         {
-            "Improbable.WorkerSdkCsharp.dll", "Improbable.WorkerSdkCsharp.Framework.dll", "Generated.Code.dll",
-            "protobuf-net.dll"
-        };
+            var name = Path.GetFileName(serverDll);
+            var clientDll = Path.Combine(clientManaged, name);
 
-        foreach (var dll in dlls)
-        {
-            var src = Path.Combine(clientManaged, dll);
-            var dst = Path.Combine(serverDir, dll);
+            if (!File.Exists(clientDll))
+                continue;
 
-            if (!File.Exists(src))
-                throw new FileNotFoundException($"Missing client SDK DLL: {src}");
-
-            File.Copy(src, dst, overwrite: true);
+            File.Copy(clientDll, serverDll, overwrite: true);
+            replaced++;
         }
 
-        AppendStatusLine("Synchronized GameServer DLLs");
+        AppendStatusLine($"Synchronized {replaced} GameServer DLLs from client Managed folder");
     }
 
     private async Task DeployServersAsync()
