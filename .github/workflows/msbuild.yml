@@ -17,8 +17,8 @@ jobs:
 
     strategy:
       matrix:
-        # Configuration type to build. https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
-        build-configuration: [Release, Debug]
+        # Only build Release
+        build-configuration: [Release]
 
     steps:
       - uses: actions/checkout@v4
