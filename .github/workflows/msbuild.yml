@@ -50,7 +50,26 @@ jobs:
       - name: Restore NuGet packages
         working-directory: ${{env.GITHUB_WORKSPACE}}
         run: nuget restore ${{env.SOLUTION_FILE_PATH}}
+        
+      - name: Dummy PayloadData.zip hack
+        run: |
+          $payloadPath = "InstallerBootstrapper\PayloadData.zip"
+          $dir = Split-Path $payloadPath
 
+          if (!(Test-Path $dir)) {
+            New-Item -ItemType Directory -Path $dir -Force | Out-Null
+          }
+
+          if (!(Test-Path $payloadPath)) {
+            Add-Type -AssemblyName System.IO.Compression.FileSystem
+            [System.IO.Compression.ZipFile]::CreateFromDirectory(
+              "$env:TEMP",
+              $payloadPath
+            )
+          }
+
+          Write-Host "Created dummy PayloadData.zip at $payloadPath"
+          
       - name: Build
         working-directory: ${{env.GITHUB_WORKSPACE}}
         # Add additional options to the MSBuild command line here (like platform or verbosity level).
@@ -78,7 +97,12 @@ jobs:
         run: |
           if (Test-Path "InstallerBootstrapper\PayloadData.zip") { Remove-Item "InstallerBootstrapper\PayloadData.zip" -Force }
           Compress-Archive -Path "publish\Client","publish\GameServer","publish\WebServer" -DestinationPath "InstallerBootstrapper\PayloadData.zip" -Force
-
+     
+      - name: Reset InstallerBootstrapper
+        run: |
+          Remove-Item InstallerBootstrapper\bin -Recurse -Force -ErrorAction SilentlyContinue
+          Remove-Item InstallerBootstrapper\obj -Recurse -Force -ErrorAction SilentlyContinue
+      
       - name: Publish InstallerBootstrapper
         working-directory: ${{env.GITHUB_WORKSPACE}}
         run: dotnet publish InstallerBootstrapper/InstallerBootstrapper.csproj --configuration ${{matrix.build-configuration}} --runtime win-x64
@@ -86,7 +110,7 @@ jobs:
       - name: Upload InstallerBootstrapper artifact
         uses: actions/upload-artifact@v4
         with:
-          name: InstallerBootstrapper-${{ matrix.build-configuration }}
+          name: WorldsAdriftOffline-${{ matrix.build-configuration }}
           path: InstallerBootstrapper/bin/${{ matrix.build-configuration }}/net8.0-windows/win-x64/publish
   
   release:
@@ -148,6 +172,6 @@ jobs:
         with:
           tag: bleeding-edge-${{ env.SHORT_SHA }}
           commit: ${{ github.sha }}
-          artifacts: "InstallerBootstrapper-*.zip"
+          artifacts: "WorldsAdriftOffline-*.zip"
           prerelease: true
           generateReleaseNotes: true
