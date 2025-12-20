@@ -41,7 +41,7 @@ OpList* Connection::GetOpList() {
     OpList* op_list = new OpList();
 
     if (this->client != NULL) {
-        ENetPacket_Wrapper* packet = ENet_Poll(this->client, 0, NULL, NULL);
+        ENetPacket_Wrapper* packet = ENet_Poll(this->client, 8, NULL, NULL);
 
         if (packet != NULL) {
             if (packet->channel == CH_AssetLoadRequestOp) {

@@ -2,11 +2,19 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using Bossa.Travellers.Ship;
+using Bossa.Travellers.Utilityslot;
+using Improbable.Collections;
+using Improbable.Corelibrary.Math;
+using Improbable.Corelibrary.Transforms;
+using Improbable.Math;
 using Improbable.Worker;
+using Improbable.Worker.Internal;
 using WorldsAdriftRebornGameServer.DLLCommunication;
 using WorldsAdriftRebornGameServer.Game;
 using WorldsAdriftRebornGameServer.Game.Components;
 using WorldsAdriftRebornGameServer.Game.Components.Update;
+using WorldsAdriftRebornGameServer.Game.Components.Update.Handlers;
 using WorldsAdriftRebornGameServer.Networking.Singleton;
 using WorldsAdriftRebornGameServer.Networking.Wrapper;
 using static WorldsAdriftRebornGameServer.DLLCommunication.EnetLayer;
@@ -38,16 +46,46 @@ namespace WorldsAdriftRebornGameServer
 
         private static readonly EnetLayer.ENet_Poll_Callback callbackC = new EnetLayer.ENet_Poll_Callback(OnNewClientConnected);
         private static readonly EnetLayer.ENet_Poll_Callback callbackD = new EnetLayer.ENet_Poll_Callback(OnClientDisconnected);
-        private static readonly List<uint> authoritativeComponents = new List<uint>{ 8050, 8051, 6908, 1260, 1097, 1003, 1241, 1082};
-        private static List<long> playerEntityIDs = new List<long>();
+        private static readonly System.Collections.Generic.List<uint> authoritativeComponents = new System.Collections.Generic.List<uint>{ 8050, 8051, 6908, 1260, 1097, 1003, 1241, 1082, 190602};
+        private static System.Collections.Generic.List<long> playerEntityIDs = new System.Collections.Generic.List<long>();
 
-        private static long nextEntityId = 0;
+        private static long nextEntityId = 1;
         public static long NextEntityId
         {
             get
             {
                 return nextEntityId++;
             }
+        }
+
+        private static void StartSpawningAllIslands( ENetPeerHandle peer, long playerId)
+        {
+            _ = TransformState_Handler.SpawnNearbyEntitiesAsync(peer, playerId, Vector3f.ZERO, 2000);
+        }
+
+        public static Dictionary<long, Dictionary<uint, object>> ComponentOverrideMap =
+            new Dictionary<long, Dictionary<uint, object>>();
+
+        public static void AddComponent<T>( long entityId, IComponentData<T> data ) where T : IComponentMetaclass
+        {
+            if (!ComponentOverrideMap.TryGetValue(entityId, out var datas))
+            {
+                datas = new Dictionary<uint, object>();
+                ComponentOverrideMap[entityId] = datas;
+            }
+
+            datas[ComponentDatabase.MetaclassToId<T>()] = data;
+        }
+        
+        public static void AddComponent( long entityId, uint componentId, object data ) 
+        {
+            if (!ComponentOverrideMap.TryGetValue(entityId, out var datas))
+            {
+                datas = new Dictionary<uint, object>();
+                ComponentOverrideMap[entityId] = datas;
+            }
+
+            datas[componentId] = data;
         }
         
         static unsafe void Main( string[] args )
@@ -57,6 +95,10 @@ namespace WorldsAdriftRebornGameServer
                 keepRunning = false;
             };
 
+            DistanceReplicationRegistry.RegisterEntities();
+            var hack = new FuelGaugeState.Data(100f, 100f);  // required or ComponentDatabase won't be initialized properly
+            Console.WriteLine($"INFO - Component Handles Registered: {ComponentUpdateManager.Instance != null} {ComponentsManager.Instance != null} | {ComponentDatabase.MetaclassMap.Count} Components");
+            
             if (EnetLayer.ENet_Initialize() < 0)
             {
                 Console.WriteLine("[error] failed to initialize ENet.");
@@ -77,67 +119,91 @@ namespace WorldsAdriftRebornGameServer
             Console.WriteLine("[info] successfully initialized networking, now waiting for connections and data.");
             PeerManager.Instance.SetENetHostHandle(server);
 
-            // define initial world state for first chunk
-            GameState.Instance.WorldState[0] = new List<SyncStep>()
+            var islandAssets = WorldMapData.Instance.Islands
+                                           .Select(i => i.Island.Replace(".json", "") + "@Island")
+                                           .Distinct()
+                                           .ToList();
+            
+            var syncSteps = new System.Collections.Generic.List<SyncStep>();
+
+            syncSteps.Add(new SyncStep(
+                GameState.NextStateRequirement.ASSET_LOADED_RESPONSE,
+                o => SendOPHelper.SendAssetLoadRequestOP(
+                    (ENetPeerHandle)o, "notNeeded?", "GlobalEntity", "notNeeded?")
+            ));
+
+            syncSteps.Add(new SyncStep(
+                GameState.NextStateRequirement.ASSET_LOADED_RESPONSE,
+                o => SendOPHelper.SendAssetLoadRequestOP(
+                    (ENetPeerHandle)o, "notNeeded?", "WallSegment", "notNeeded?")
+            ));
+
+            syncSteps.Add(new SyncStep(
+                GameState.NextStateRequirement.ASSET_LOADED_RESPONSE,
+                o => SendOPHelper.SendAssetLoadRequestOP(
+                    (ENetPeerHandle)o, "notNeeded?", "Traveller", "Player")
+            ));
+
+            foreach (var island in islandAssets)
             {
-                new SyncStep(GameState.NextStateRequirement.ASSET_LOADED_RESPONSE, new Action<object>((object o) =>
+                syncSteps.Add(new SyncStep(
+                    GameState.NextStateRequirement.ASSET_LOADED_RESPONSE,
+                    o =>
+                    {
+                        Console.WriteLine($"[info] requesting asset load for {island}");
+                        SendOPHelper.SendAssetLoadRequestOP(
+                            (ENetPeerHandle)o, "notNeeded?", island, "notNeeded?");
+                    }));
+            }
+            // Keep the current 0,0,0 island for spawning simplicity
+            syncSteps.Add(new SyncStep(
+                GameState.NextStateRequirement.ADDED_ENTITY_RESPONSE,
+                o =>
                 {
-                    Console.WriteLine("[info] requesting the game to load the player asset...");
+                    const string rootIsland = "949069116@Island";
 
-                    if (SendOPHelper.SendAssetLoadRequestOP((ENetPeerHandle)o, "notNeeded?", "Traveller", "Player"))
-                    {
-                        Console.WriteLine("[info] successfully serialized and queued AssetLoadRequestOp.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("[error] failed to serialize and queue AssetLoadRequestOp.");
-                    }
-                })),
-                new SyncStep(GameState.NextStateRequirement.ASSET_LOADED_RESPONSE, new Action<object>((object o) =>
-                {
-                    Console.WriteLine("[info] requesting the game to load the island from its asset bundles...");
-
-                    if (SendOPHelper.SendAssetLoadRequestOP((ENetPeerHandle)o, "notNeeded?", "949069116@Island", "notNeeded?"))
-                    {
-                        Console.WriteLine("[info] successfully serialized and queued AssetLoadRequestOp.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("[error] failed to serialize and queue AssetLoadRequestOp.");
-                    }
-                })),
-                new SyncStep(GameState.NextStateRequirement.ADDED_ENTITY_RESPONSE, new Action<object>((object o) =>
-                {
                     Console.WriteLine("[success] island asset loaded. requesting loading of island...");
 
-                    if (SendOPHelper.SendAddEntityOP((ENetPeerHandle)o, NextEntityId, "949069116@Island", "notNeeded?"))
-                    {
-                        Console.WriteLine("[info] successfully serialized and queued AddEntityOp.");
-                    }
-                    else
+                    if (!SendOPHelper.SendAddEntityOP(
+                            (ENetPeerHandle)o,
+                            NextEntityId,
+                            rootIsland,
+                            "notNeeded?"))
                     {
                         Console.WriteLine("[error] failed to serialize and queue AddEntityOp.");
                     }
-                })),
-                new SyncStep(GameState.NextStateRequirement.ADDED_ENTITY_RESPONSE, new Action<object>((object o) =>
-                {
-                    Console.WriteLine("[info] client ack'ed island spawning instruction (info by sdk, does not mean it truly spawned). requesting to spawn player...");
+                }
+            ));
 
-                    playerEntityIDs.Add(NextEntityId);
-                    if(SendOPHelper.SendAddEntityOP((ENetPeerHandle)o, playerEntityIDs.Last<long>(), "Traveller", "Player"))
-                    {
-                        Console.WriteLine("[info] successfully serialized and queued AddEntityOp.");
-                    }
-                    else
+            syncSteps.Add(new SyncStep(
+                GameState.NextStateRequirement.ADDED_ENTITY_RESPONSE,
+                o =>
+                {
+                    Console.WriteLine("[info] client ack'ed island spawn. requesting to spawn player...");
+
+                    var playerId = NextEntityId;
+                    playerEntityIDs.Add(playerId);
+
+                    if (!SendOPHelper.SendAddEntityOP(
+                            (ENetPeerHandle)o,
+                            playerEntityIDs.Last(),
+                            "Traveller",
+                            "Player"))
                     {
                         Console.WriteLine("[error] failed to serialize and queue AddEntityOp.");
+                        return;
                     }
-                }))
-            };
+
+                    Console.WriteLine($"INFO - Player is spawning as entity {playerId}");
+                    // spawn remaining islands
+                    StartSpawningAllIslands((ENetPeerHandle)o, playerId);
+                }
+            ));
+            GameState.Instance.WorldState[0] = syncSteps;
 
             while (keepRunning)
             {
-                EnetLayer.ENetPacket_Wrapper* packet = EnetLayer.ENet_Poll(server, 50, Marshal.GetFunctionPointerForDelegate(callbackC), Marshal.GetFunctionPointerForDelegate(callbackD));
+                EnetLayer.ENetPacket_Wrapper* packet = EnetLayer.ENet_Poll(server, 25, Marshal.GetFunctionPointerForDelegate(callbackC), Marshal.GetFunctionPointerForDelegate(callbackD));
                 if(packet != null)
                 {
                     // work on packets that are relevant to progress in sync state
@@ -188,7 +254,7 @@ namespace WorldsAdriftRebornGameServer
 
                                     // some components are needed in the first stage and need to be injected.
                                     // we also need PilotState since schematics for glider where added, as the game nullrefs in PlayerExternalDataVisualizer.IsDriving() now (1109)
-                                    List<Structs.Structs.InterestOverride> injectedEarly = new List<Structs.Structs.InterestOverride> { new Structs.Structs.InterestOverride(1109, 1) };
+                                    System.Collections.Generic.List<Structs.Structs.InterestOverride> injectedEarly = new System.Collections.Generic.List<Structs.Structs.InterestOverride> { new Structs.Structs.InterestOverride(1109, 1) };
 
                                     if (!SendOPHelper.SendAddComponentOp(keyValuePair.Key, entityId, injectedEarly, true))
                                     {
@@ -202,7 +268,7 @@ namespace WorldsAdriftRebornGameServer
                                     }
 
                                     // for some reason the game does not always request component 1080 (SchematicsLearnerGSimState), but its reader is required in InventoryVisualiser
-                                    List<Structs.Structs.InterestOverride> injected = new List<Structs.Structs.InterestOverride> { new Structs.Structs.InterestOverride(1080, 1) };
+                                    System.Collections.Generic.List<Structs.Structs.InterestOverride> injected = new System.Collections.Generic.List<Structs.Structs.InterestOverride> { new Structs.Structs.InterestOverride(1080, 1) };
                                     // also inject other required components for the inventory
                                     injected.AddRange(authoritativeComponents.Select(p => new Structs.Structs.InterestOverride(p, 1)));
 
@@ -242,7 +308,7 @@ namespace WorldsAdriftRebornGameServer
 
                             if (EnetLayer.PB_EXP_ComponentUpdateOp_Deserialize(packet->Data, (int)packet->DataLength, &entityId, &update, &updateCount) && updateCount > 0)
                             {
-                                Console.WriteLine("[info] game requests " + updateCount + " ComponentUpdate's for entity id " + entityId);
+                                // Console.WriteLine("[info] game requests " + updateCount + " ComponentUpdate's for entity id " + entityId);
 
                                 for(int i = 0; i < updateCount; i++)
                                 {

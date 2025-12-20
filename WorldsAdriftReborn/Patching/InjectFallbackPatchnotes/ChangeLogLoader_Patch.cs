@@ -90,19 +90,19 @@ namespace WorldsAdriftReborn.Patching.Dynamic.InjectFallbackPatchnotes
             WearableUtilsState.Data wData = new WearableUtilsState.Data(new WearableUtilsStateData(new List<int> { }, new List<float> { }, new List<bool> { }));
 
             InteractAgentState.Data iaData = new InteractAgentState.Data(new InteractAgentStateData(    true,
-                                                                                                        new EntityId(0),
-                                                                                                        new EntityId(0),
-                                                                                                        new EntityId(0),
+                                                                                                        new EntityId(-1),
+                                                                                                        new EntityId(-1),
+                                                                                                        new EntityId(-1),
                                                                                                         new Improbable.Math.Vector3f(0f, 0f, 0f),
                                                                                                         new Improbable.Math.Coordinates(),
                                                                                                         1,
                                                                                                         1));
 
-            InteractAgentServerState.Data iasData = new InteractAgentServerState.Data(new InteractAgentServerStateData( new EntityId(0),
+            InteractAgentServerState.Data iasData = new InteractAgentServerState.Data(new InteractAgentServerStateData( new EntityId(-1),
                                                                                                                         0,
                                                                                                                         1,
-                                                                                                                        new EntityId(0),
-                                                                                                                        new EntityId(0),
+                                                                                                                        new EntityId(-1),
+                                                                                                                        new EntityId(-1),
                                                                                                                         Bossa.Travellers.Items.MultitoolMode.Default,
                                                                                                                         new Option<ScalaSlottedInventoryItem> { }));
 
@@ -113,15 +113,15 @@ namespace WorldsAdriftReborn.Patching.Dynamic.InjectFallbackPatchnotes
 
             MountedGunShotState.Data mgData = new MountedGunShotState.Data();
 
-            PilotState.Data psData = new PilotState.Data(new PilotStateData(new EntityId(0), new EntityId(0), ControlVehicleType.None));
+            PilotState.Data psData = new PilotState.Data(new PilotStateData(new EntityId(-1), new EntityId(-1), ControlVehicleType.None));
 
-            BuilderServerState.Data bsData = new BuilderServerState.Data(new BuilderServerStateData(new EntityId(0)));
+            BuilderServerState.Data bsData = new BuilderServerState.Data(new BuilderServerStateData(new EntityId(-1)));
 
-            WorldData.Data woData = new WorldData.Data(new WorldDataData(new EntityId(0), 0.15f, 1f, 1));
+            WorldData.Data woData = new WorldData.Data(new WorldDataData(new EntityId(-1), 0.15f, 1f, 1));
 
             RopeControlPoints.Data rcData = new RopeControlPoints.Data(new RopeControlPointsData(new List<Coordinates> { }, new List<DynamicRopePoint> { }, false, 0f));
 
-            ShipHullAgentState.Data shData = new ShipHullAgentState.Data(new ShipHullAgentStateData(new List<ShipHullSchematicData> { }, new EntityId(0)));
+            ShipHullAgentState.Data shData = new ShipHullAgentState.Data(new ShipHullAgentStateData(new List<ShipHullSchematicData> { }, new EntityId(-1)));
 
             PlayerAnalyticsState.Data paData = new PlayerAnalyticsState.Data(new PlayerAnalyticsStateData(  "someuser_id",
                                                                                                             "somesession_id",
@@ -154,7 +154,7 @@ namespace WorldsAdriftReborn.Patching.Dynamic.InjectFallbackPatchnotes
 
             PlayerActivationState.Data pcData = new PlayerActivationState.Data(new PlayerActivationStateData(true, 12345, 123));
 
-            ShipyardVisitorState.Data svData = new ShipyardVisitorState.Data(new ShipyardVisitorStateData(new EntityId(0), "abcdefg"));
+            ShipyardVisitorState.Data svData = new ShipyardVisitorState.Data(new ShipyardVisitorStateData(new EntityId(-1), "abcdefg"));
 
             CraftingStationClientState.Data csData = new CraftingStationClientState.Data(new CraftingStationClientStateData(    "schematicId",
                                                                                                                                 "owner",

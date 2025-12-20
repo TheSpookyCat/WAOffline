@@ -6,7 +6,7 @@ namespace WorldsAdriftRebornGameServer.Networking.Singleton
 {
     internal class ComponentsManager
     {
-        private static ComponentsManager instance = null;
+        private static ComponentsManager? instance = null;
         public ComponentProtocol.ClientComponentVtable[] ClientComponentVtables { get; private set; }
         private ComponentsManager()
         {

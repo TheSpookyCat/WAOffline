@@ -4,8 +4,6 @@ on:
   push:
     # NOTE: Add your own branch here if you want to test, and commit to that branch to trigger the pipeline
     branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
 
 env:
   SOLUTION_FILE_PATH: .

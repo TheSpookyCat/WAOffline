@@ -348,6 +348,8 @@ public sealed class InstallerViewModel : INotifyPropertyChanged
             AppendStatusLine("Applying bundled servers");
             await DeployServersAsync();
             ProgressPercent = 82;
+            
+            SyncServerSdkDllsFromClient();
 
             CurrentStep = "BepInEx";
             AppendStatusLine($"Installing BepInEx {BepInExVersion}");
@@ -636,6 +638,12 @@ public sealed class InstallerViewModel : INotifyPropertyChanged
         {
             throw new InvalidOperationException("BepInEx installation incomplete after extraction.");
         }
+        
+        var appIdPath = Path.Combine(InstallPath, "steam_appid.txt");
+        if (!File.Exists(appIdPath))
+        {
+            await File.WriteAllTextAsync(appIdPath, "322780");
+        }
 
         AppendStatusLine($"BepInEx {BepInExVersion} installed.");
     }
@@ -730,6 +738,31 @@ public sealed class InstallerViewModel : INotifyPropertyChanged
 
         PayloadStatus = "Game files validated";
         return true;
+    }
+
+    private void SyncServerSdkDllsFromClient()
+    {
+        var clientManaged = Path.Combine(InstallPath, "UnityClient@Windows_Data", "Managed");
+        var serverDir = Path.Combine(InstallPath, "GameServer");
+
+        string[] dlls =
+        {
+            "Improbable.WorkerSdkCsharp.dll", "Improbable.WorkerSdkCsharp.Framework.dll", "Generated.Code.dll",
+            "protobuf-net.dll"
+        };
+
+        foreach (var dll in dlls)
+        {
+            var src = Path.Combine(clientManaged, dll);
+            var dst = Path.Combine(serverDir, dll);
+
+            if (!File.Exists(src))
+                throw new FileNotFoundException($"Missing client SDK DLL: {src}");
+
+            File.Copy(src, dst, overwrite: true);
+        }
+
+        AppendStatusLine("Synchronized GameServer DLLs");
     }
 
     private async Task DeployServersAsync()

@@ -119,7 +119,7 @@ namespace WorldsAdriftRebornGameServer.Game.Components.Update
         public unsafe bool HandleComponentUpdate(ENetPeerHandle player, long entityId, uint componentId, byte* componentData, int componentDataLength)
         {
             bool success = false;
-            Console.WriteLine("[info] trying to handle a ComponentUpdateOp for " + componentId);
+            // Console.WriteLine("[info] trying to handle a ComponentUpdateOp for " + componentId);
 
             for (int i = 0; i < ComponentsManager.Instance.ClientComponentVtables.Length; i++)
             {

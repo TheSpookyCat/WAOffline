@@ -10,7 +10,8 @@ namespace WorldsAdriftRebornGameServer.Networking.Wrapper
 {
     internal class SendOPHelper
     {
-        public static unsafe bool SendAddEntityOP(ENetPeerHandle destination, long entityId, string prefabName, string prefabContext)
+        public static unsafe bool SendAddEntityOP( ENetPeerHandle destination, long entityId, string prefabName,
+            string prefabContext )
         {
             Structs.Structs.AddEntityOp addEntityOp;
 
@@ -27,15 +28,18 @@ namespace WorldsAdriftRebornGameServer.Networking.Wrapper
 
                     if (ptr != null && len != 0)
                     {
-                        EnetLayer.ENet_Send(destination, (int)EnetLayer.ENetChannel.ADD_ENTITY_OP, ptr, len, (int)ENetPacketFlag.RELIABLE);
+                        EnetLayer.ENet_Send(destination, (int)EnetLayer.ENetChannel.ADD_ENTITY_OP, ptr, len,
+                            (int)ENetPacketFlag.RELIABLE);
                         return true;
                     }
+
                     return false;
                 }
             }
         }
 
-        public static unsafe bool SendAssetLoadRequestOP(ENetPeerHandle destination, string assetType, string assetName, string assetContext)
+        public static unsafe bool SendAssetLoadRequestOP( ENetPeerHandle destination, string assetType,
+            string assetName, string assetContext )
         {
             Structs.Structs.AssetLoadRequestOp assetLoadRequestOp;
 
@@ -55,64 +59,79 @@ namespace WorldsAdriftRebornGameServer.Networking.Wrapper
 
                         if (ptr != null && len != 0)
                         {
-                            EnetLayer.ENet_Send(destination, (int)EnetLayer.ENetChannel.ASSET_LOAD_REQUEST_OP, ptr, len, (int)ENetPacketFlag.RELIABLE);
+                            EnetLayer.ENet_Send(destination, (int)EnetLayer.ENetChannel.ASSET_LOAD_REQUEST_OP, ptr, len,
+                                (int)ENetPacketFlag.RELIABLE);
                             return true;
                         }
+
                         return false;
                     }
                 }
             }
         }
 
-        public static unsafe bool SendAddComponentOp( ENetPeerHandle destination, long entityId, List<Structs.Structs.InterestOverride> interests, bool failOnComponentInitError = false )
+        public static unsafe bool SendAddComponentOp( ENetPeerHandle destination, long entityId,
+            List<Structs.Structs.InterestOverride> interests, bool failOnComponentInitError = false )
         {
-            fixed(Structs.Structs.InterestOverride* interestsArray = interests.ToArray())
+            fixed (Structs.Structs.InterestOverride* interestsArray = interests.ToArray())
             {
                 return SendAddComponentOp(destination, entityId, interestsArray, (uint)interests.Count);
             }
         }
 
-        public static unsafe bool SendAddComponentOp(ENetPeerHandle destination, long entityId, Structs.Structs.InterestOverride* interests, uint interestCount, bool failOnComponentInitError = false )
+        public static unsafe bool SendAddComponentOp( ENetPeerHandle destination, long entityId,
+            Structs.Structs.InterestOverride* interests, uint interestCount, bool failOnComponentInitError = false )
         {
             List<Structs.Structs.AddComponentOp> serializedComponents = new List<Structs.Structs.AddComponentOp>();
 
-            for (int i = 0; i < interestCount; i++)
+            try
             {
-                uint len = 0;
-                byte* buffer;
-                ComponentsSerializer.InitAndSerialize(destination, entityId, interests[i].ComponentId, &buffer, &len);
-
-                if (len <= 0)
+                for (int i = 0; i < interestCount; i++)
                 {
-                    Console.WriteLine("[error] failed to initialize component " + interests[i].ComponentId);
-                    if (failOnComponentInitError)
+                    uint len = 0;
+                    byte* buffer;
+                    ComponentsSerializer.InitAndSerialize(destination, entityId, interests[i].ComponentId, &buffer,
+                        &len);
+
+                    if (len <= 0)
                     {
-                        Console.WriteLine("[info] aborting send of components.");
-                        return false;
+                        Console.WriteLine("[error] failed to initialize component " + interests[i].ComponentId);
+                        if (failOnComponentInitError)
+                        {
+                            Console.WriteLine("[info] aborting send of components.");
+                            return false;
+                        }
+
+                        continue;
                     }
-                    continue;
+
+                    Console.WriteLine("[success] initialized and serialized componentId " + interests[i].ComponentId);
+                    Structs.Structs.AddComponentOp component;
+
+                    component.ComponentId = interests[i].ComponentId;
+                    component.ComponentData = buffer;
+                    component.DataLength = (int)len;
+
+                    serializedComponents.Add(component);
                 }
-
-                Console.WriteLine("[success] initialized and serialized componentId " + interests[i].ComponentId);
-                Structs.Structs.AddComponentOp component;
-
-                component.ComponentId = interests[i].ComponentId;
-                component.ComponentData = buffer;
-                component.DataLength = (int)len;
-
-                serializedComponents.Add(component);
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine($"ERROR - {exception.Message}\n{exception.StackTrace}");
             }
 
             fixed (Structs.Structs.AddComponentOp* comps = serializedComponents.ToArray())
             {
                 int len = 0;
-                void* ptr = EnetLayer.PB_EXP_AddComponentOp_Serialize(entityId, comps, (uint)serializedComponents.Count, &len);
+                void* ptr = EnetLayer.PB_EXP_AddComponentOp_Serialize(entityId, comps, (uint)serializedComponents.Count,
+                    &len);
 
                 if (ptr != null && len > 0)
                 {
                     Console.WriteLine("[success] serialized all requested components, sending them to the game now...");
 
-                    EnetLayer.ENet_Send(destination, (int)EnetLayer.ENetChannel.SEND_COMPONENT_INTEREST, ptr, len, (int)ENetPacketFlag.RELIABLE);
+                    EnetLayer.ENet_Send(destination, (int)EnetLayer.ENetChannel.SEND_COMPONENT_INTEREST, ptr, len,
+                        (int)ENetPacketFlag.RELIABLE);
 
                     return true;
                 }
@@ -121,9 +140,10 @@ namespace WorldsAdriftRebornGameServer.Networking.Wrapper
             return false;
         }
 
-        public static unsafe bool SendComponentUpdateOp(ENetPeerHandle destination, long entityId, List<uint> componentId, List<object> updates )
+        public static unsafe bool SendComponentUpdateOp( ENetPeerHandle destination, long entityId,
+            List<uint> componentId, List<object> updates )
         {
-            if(componentId.Count != updates.Count)
+            if (componentId.Count != updates.Count)
             {
                 Console.WriteLine("[error] SendComponentUpdateOp: component id's and update count must match.");
                 return false;
@@ -131,9 +151,10 @@ namespace WorldsAdriftRebornGameServer.Networking.Wrapper
 
             List<Structs.Structs.ComponentUpdateOp> cupdates = new List<Structs.Structs.ComponentUpdateOp>();
 
-            for(int i = 0; i < updates.Count; i++)
+            for (int i = 0; i < updates.Count; i++)
             {
-                ComponentProtocol.ClientSerialize serializer = ComponentsManager.Instance.GetSerializerForComponent(componentId[i]);
+                ComponentProtocol.ClientSerialize serializer =
+                    ComponentsManager.Instance.GetSerializerForComponent(componentId[i]);
                 ulong refId = ClientObjects.Instance.CreateReference(updates[i]);
 
                 ComponentProtocol.ClientObject* cobj = ClientObjects.ObjectAlloc();
@@ -144,7 +165,7 @@ namespace WorldsAdriftRebornGameServer.Networking.Wrapper
                 cobj->Reference = refId;
                 serializer(componentId[i], 1, cobj, &cbuffer, &len);
 
-                if(len > 0)
+                if (len > 0)
                 {
                     Console.WriteLine("[success] serialized stored component after update. " + componentId[i] + ")");
 
@@ -164,11 +185,12 @@ namespace WorldsAdriftRebornGameServer.Networking.Wrapper
                 int len = 0;
                 void* ptr = EnetLayer.PB_EXP_ComponentUpdateOp_Serialize(entityId, u, (uint)updates.Count, &len);
 
-                if(ptr != null && len > 0)
+                if (ptr != null && len > 0)
                 {
                     Console.WriteLine("[success] serialized ComponentUpdateOp message for client.");
 
-                    EnetLayer.ENet_Send(destination, (int)EnetLayer.ENetChannel.COMPONENT_UPDATE_OP, ptr, len, (int)ENetPacketFlag.RELIABLE);
+                    EnetLayer.ENet_Send(destination, (int)EnetLayer.ENetChannel.COMPONENT_UPDATE_OP, ptr, len,
+                        (int)ENetPacketFlag.RELIABLE);
 
                     return true;
                 }
@@ -177,12 +199,15 @@ namespace WorldsAdriftRebornGameServer.Networking.Wrapper
             return false;
         }
 
-        public static unsafe bool SendAuthorityChangeOp(ENetPeerHandle destination, long entityId, List<uint> components)
+        public static unsafe bool SendAuthorityChangeOp( ENetPeerHandle destination, long entityId,
+            List<uint> components )
         {
-            fixed (Structs.Structs.AuthorityChangeOp* authChangeOps = components.Select(p => new Structs.Structs.AuthorityChangeOp(p, true)).ToArray())
+            fixed (Structs.Structs.AuthorityChangeOp* authChangeOps =
+                       components.Select(p => new Structs.Structs.AuthorityChangeOp(p, true)).ToArray())
             {
                 int len = 0;
-                void* ptr = EnetLayer.PB_EXP_AuthorityChangeOp_Serialize(entityId, authChangeOps, (uint)components.Count, &len);
+                void* ptr = EnetLayer.PB_EXP_AuthorityChangeOp_Serialize(entityId, authChangeOps,
+                    (uint)components.Count, &len);
 
                 if (ptr == null || len <= 0)
                 {
@@ -191,7 +216,8 @@ namespace WorldsAdriftRebornGameServer.Networking.Wrapper
                 }
 
                 Console.WriteLine("[info] serialized all AuthorityChangeOp instructions for authoritative components.");
-                EnetLayer.ENet_Send(destination, (int)EnetLayer.ENetChannel.AUTHORITY_CHANGE_OP, ptr, len, (int)ENetPacketFlag.RELIABLE);
+                EnetLayer.ENet_Send(destination, (int)EnetLayer.ENetChannel.AUTHORITY_CHANGE_OP, ptr, len,
+                    (int)ENetPacketFlag.RELIABLE);
 
                 return true;
             }

@@ -1,13 +1,79 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 using WorldsAdriftRebornGameServer.DLLCommunication;
 
 namespace WorldsAdriftRebornGameServer.Game
 {
+    public sealed class WorldMapData
+    {
+        public WorldInfoData? WorldInfo { get; set; }
+        public HavenData? Haven { get; set; }
+        public List<IslandData>? Islands { get; set; }
+        public List<BiomeData>? Biomes { get; set; }
+        public List<WallData>? Walls { get; set; }
+
+        private static readonly string Path = System.IO.Path.Combine(AppContext.BaseDirectory, "Game", "shard_sunset.json");
+        public static WorldMapData Instance => instance ?? Load();
+        private static WorldMapData? instance;
+
+        private static WorldMapData Load()
+        {
+            try
+            {
+                var json = File.ReadAllText(Path);
+
+                var result = JsonSerializer.Deserialize<WorldMapData>(
+                    json,
+                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                if (result != null) return result;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"ERROR - Failed to load file {Path}: {ex.Message}\n{ex.StackTrace}");
+                return new WorldMapData();
+            }
+
+            Console.WriteLine($"ERROR - No world data found at {Path}!");
+            return new WorldMapData();
+        }
+    }
+
+    public sealed class WorldInfoData
+    {
+        public string GSIMConfig { get; set; }
+        public int WorldEdgeLength { get; set; }
+    }
+
+    public sealed class HavenData
+    {
+        public float xOfVerticalSeparator { get; set; }
+    }
+
+    public sealed class IslandData
+    {
+        public float x { get; set; }
+        public float y { get; set; }
+        public float z { get; set; }
+        public string Island { get; set; }
+    }
+
+    public sealed class BiomeData
+    {
+        public float x { get; set; }
+        public float z { get; set; }
+        public int Type { get; set; }
+        public int Civ { get; set; }
+        public string District { get; set; }
+    }
+
+    public sealed class WallData
+    {
+        public float x1 { get; set; }
+        public float z1 { get; set; }
+        public float x2 { get; set; }
+        public float z2 { get; set; }
+        public int Type { get; set; }
+    }
+    
     internal class SyncStep
     {
         public GameState.NextStateRequirement NextStateRequirement { get; set; }

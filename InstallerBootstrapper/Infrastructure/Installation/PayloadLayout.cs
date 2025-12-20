@@ -1,6 +1,9 @@
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 namespace InstallerLauncher.Infrastructure.Installation;
 
@@ -37,6 +40,22 @@ public static class PayloadLayout
             await resourceStream.CopyToAsync(file);
         }
 
+        var payloadHash = await ComputeSha256Async(tempZipPath);
+        var payloadHashPath = Path.Combine(payloadRoot, ".payloadhash");
+
+        if (Directory.Exists(payloadRoot) && Directory.EnumerateFileSystemEntries(payloadRoot).Any())
+        {
+            if (File.Exists(payloadHashPath))
+            {
+                var existingHash = await File.ReadAllTextAsync(payloadHashPath);
+                if (string.Equals(existingHash, payloadHash, StringComparison.OrdinalIgnoreCase))
+                {
+                    File.Delete(tempZipPath);
+                    return payloadRoot;
+                }
+            }
+        }
+
         var tempExtractDir = Path.Combine(Path.GetTempPath(), $"InstallerPayload_{Guid.NewGuid():N}");
         ZipFile.ExtractToDirectory(tempZipPath, tempExtractDir, overwriteFiles: true);
         File.Delete(tempZipPath);
@@ -61,6 +80,8 @@ public static class PayloadLayout
             CopyDirectory(contentRoot, payloadRoot);
         }
 
+        await File.WriteAllTextAsync(payloadHashPath, payloadHash);
+
         if (Directory.Exists(tempExtractDir))
         {
             Directory.Delete(tempExtractDir, recursive: true);
@@ -73,6 +94,13 @@ public static class PayloadLayout
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(payloadName);
         return Path.Combine(GetPayloadRoot(), payloadName);
+    }
+
+    private static async Task<string> ComputeSha256Async(string filePath)
+    {
+        await using var stream = File.OpenRead(filePath);
+        var hash = await SHA256.HashDataAsync(stream);
+        return Convert.ToHexString(hash);
     }
 
     private static void CopyDirectory(string sourceDir, string destinationDir)
