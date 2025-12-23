@@ -1006,7 +1006,7 @@
     "description": "A personal glider you can deploy by pressing Spacebar while in the air.",
     "category": "Equipment",
     "iconName": "crafted items/3x4_glider",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Utility",
     "metadata": {
       "totalHealth": "100",
@@ -3842,7 +3842,7 @@
     "height": 2,
     "width": 3,
     "iconName": "clothing/heads/3x2_head_christmas_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#5E4538",
@@ -3857,7 +3857,7 @@
     "name": "Barguan Skull Mask",
     "category": "Founder's Pack",
     "iconName": "clothing/heads/2x2_head_skullmask_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "6F6F6FFF",
@@ -3877,7 +3877,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_hoodVariantA_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "454680",
@@ -3897,7 +3897,7 @@
     "name": "Developer's Cap",
     "category": "-",
     "iconName": "clothing/heads/2x2_head_devhat_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#15161B",
@@ -3912,7 +3912,7 @@
     "name": "Drissian Cowl",
     "category": "Pioneer Edition",
     "iconName": "clothing/heads/2x2_head_pioneer_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#4A4131",
@@ -3927,7 +3927,7 @@
     "category": "-",
     "name": "Forgotten Horns of the Olk",
     "iconName": "clothing/heads/2x2_head_goatmask_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#7A818B",
@@ -3942,7 +3942,7 @@
     "height": 3,
     "width": 3,
     "iconName": "clothing/heads/3x3_head_bargu_mask_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "898989",
@@ -3963,7 +3963,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_intucki_mask_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "FFF3CC",
@@ -3984,7 +3984,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_tamoe_mask_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "9C948D",
@@ -4005,7 +4005,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_yharma_mask_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "C7A094",
@@ -4026,7 +4026,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_christmas_2018_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#26120D",
@@ -4041,7 +4041,7 @@
     "name": "Barguan Skeleton Paint",
     "category": "Founder's Pack",
     "iconName": "clothing/torsos/2x3_torso_tribal_skeleton_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "6F6F6FFF",
@@ -4062,7 +4062,7 @@
     "width": 2,
     "category": "Founder's Pack",
     "iconName": "clothing/torsos/2x3_torso_tribal_skeleton_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#3C4045",
@@ -4077,7 +4077,7 @@
     "name": "Developer's Jacket",
     "category": "-",
     "iconName": "clothing/torsos/2x3_torso_devjacket_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "FFFFFF",
@@ -4097,7 +4097,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_devjacket_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#9D571C",
@@ -4112,7 +4112,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_christmas_2018_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#261511",
@@ -4127,7 +4127,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_tribal_tamoe_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#3C4045",
@@ -4142,7 +4142,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_tribal_tamoe_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#3A3E43",
@@ -4157,7 +4157,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_summer_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#3C4045",
@@ -4172,7 +4172,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_summer_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#3D4146",
@@ -4187,7 +4187,7 @@
     "name": "Barguan Skeleton Skirt",
     "category": "Founder's Pack",
     "iconName": "clothing/legs/2x4_legs_tribal_skeleton_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "6F6F6FFF",
@@ -4208,7 +4208,7 @@
     "name": "Barguan Skeleton Skirt",
     "category": "Founder's Pack",
     "iconName": "clothing/legs/2x4_legs_tribal_skeleton_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#635742",
@@ -4223,7 +4223,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_christmas_2018_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#A2A09F",
@@ -4238,7 +4238,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_christmas_2018_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#949290",
@@ -4253,7 +4253,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_tribal_tamoe_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#3C3F44",
@@ -4268,7 +4268,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_tribal_tamoe_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#635742",
@@ -4283,7 +4283,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_summer_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#3C3F44",
@@ -4298,7 +4298,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_summer_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#3C3F44",
@@ -4311,7 +4311,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_scarf_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#5D6168",
@@ -4324,7 +4324,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_bandana_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#A5AFBA",
@@ -4337,7 +4337,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_squireVariantA_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#C2CBDA",
@@ -4350,7 +4350,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_squireVariantA_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#B9C3D2",
@@ -4363,7 +4363,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_ponchoVariantB_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#C3CCDB",
@@ -4376,7 +4376,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_ponchoVariantB_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#BFC8D7",
@@ -4389,7 +4389,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_engineer_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#736952",
@@ -4402,7 +4402,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_engineer_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#776E56",
@@ -4415,7 +4415,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_wanderer_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#C2CBDA",
@@ -4428,7 +4428,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_wanderer_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#BAC4D3",
@@ -4441,7 +4441,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_boots_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#BAC4D3",
@@ -4454,7 +4454,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_boots_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#57392E",
@@ -4467,7 +4467,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_shorts_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#BDC7D6",
@@ -4480,7 +4480,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_shorts_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#BDC7D6",
@@ -4493,7 +4493,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_wrap_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#BAC4D3",
@@ -4506,7 +4506,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_wrap_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#BDC7D6",
@@ -4519,7 +4519,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_belts_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#39251E",
@@ -4532,7 +4532,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_belts_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#39251E",
@@ -4545,7 +4545,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_turban_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#848B94",
@@ -4558,7 +4558,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_banditmask_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#808890",
@@ -4571,7 +4571,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_banditmaskpekoe_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#848D94",
@@ -4584,7 +4584,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_kitsunemask_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#79808A",
@@ -4597,7 +4597,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_lallarahelm_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#4E342A",
@@ -4610,7 +4610,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_bandages_ninja_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#BCC6D5",
@@ -4623,7 +4623,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_bandages_ninja_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#C0C9D8",
@@ -4636,7 +4636,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_bandages_scales_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#5F4331",
@@ -4649,7 +4649,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_bandages_scales_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#563930",
@@ -4662,7 +4662,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_goner_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#BDC7D6",
@@ -4675,7 +4675,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_goner_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#BDC7D6",
@@ -4688,7 +4688,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_metal_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#2B2429",
@@ -4701,7 +4701,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_artisan_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#574331",
@@ -4714,7 +4714,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_gogglecap_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#1B0D0A",
@@ -4727,7 +4727,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_hawkhelm_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#222528",
@@ -4740,7 +4740,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_owl_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#B1BAC7",
@@ -4755,7 +4755,7 @@
     "category": "",
     "name": "Horns",
     "iconName": "clothing/heads/4x2_head_horned_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#B2BCCB",
@@ -4768,7 +4768,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_merchant_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#848D94",
@@ -4781,7 +4781,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_ishgiruan_pilot_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#858E9B",
@@ -4794,7 +4794,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_navigator_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#785F52",
@@ -4807,7 +4807,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/heads/2x3_head_moebius_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#A6AFBC",
@@ -4820,7 +4820,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_rogue_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#543D2E",
@@ -4833,7 +4833,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_pilotcap_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#110F09",
@@ -4846,7 +4846,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_scales_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#735139",
@@ -4859,7 +4859,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_scales_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#594030",
@@ -4872,7 +4872,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_engineerVariantA_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#4A3431",
@@ -4885,7 +4885,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_engineerVariantA_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#47322E",
@@ -4898,7 +4898,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_ishgiruan_pilot_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#A4ADBC",
@@ -4911,7 +4911,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_ishgiruan_pilot_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#A5AEBD",
@@ -4924,7 +4924,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_combo_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#938D8B",
@@ -4937,7 +4937,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_combo_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#4A4139",
@@ -4950,7 +4950,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_ishgiruan_pilot_variantA_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#A4ADBC",
@@ -4963,7 +4963,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_ishgiruan_pilot_variantA_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#A4ADBC",
@@ -4976,7 +4976,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_ishgiruan_pilot_variantB_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#A2ABBA",
@@ -4989,7 +4989,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_ishgiruan_pilot_variantB_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#A2ABBA",
@@ -5002,7 +5002,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_ponchoB_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#C0C9D8",
@@ -5015,7 +5015,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_ponchoB_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#BFC8D7",
@@ -5028,7 +5028,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_ponchoBVariantA_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#C0C9D8",
@@ -5041,7 +5041,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_ponchoBVariantA_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#C0C9D8",
@@ -5054,7 +5054,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_neckguard_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#4A4139",
@@ -5067,7 +5067,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_neckguard_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#4A4139",
@@ -5080,7 +5080,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_squire_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#BFC8D7",
@@ -5093,7 +5093,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_squire_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#C2CBDA",
@@ -5106,7 +5106,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_pirate_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#BAC4D3",
@@ -5119,7 +5119,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_pirate_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#BBC5D4",
@@ -5132,7 +5132,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_pirateVariantA_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#BAC4D3",
@@ -5145,7 +5145,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_pirateVariantA_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#BBC5D4",
@@ -5158,7 +5158,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_roman_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#B9C3D2",
@@ -5171,7 +5171,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_roman_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#B8C2D1",
@@ -5184,7 +5184,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_cape_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#BDC7D6",
@@ -5197,7 +5197,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_cape_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#7D838D",
@@ -5210,7 +5210,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_baggy_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#BDC7D6",
@@ -5223,7 +5223,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_baggy_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#BDC7D6",
@@ -5236,7 +5236,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_hunterwide_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#020202",
@@ -5249,7 +5249,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_featherhat_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#A3AAB6",
@@ -5262,7 +5262,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_godhand_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#A5AFBA",
@@ -5275,7 +5275,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_hoodcap_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#655E47",
@@ -5288,7 +5288,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_circlemask_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#7A828A",
@@ -5301,7 +5301,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_tank_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#393523",
@@ -5314,7 +5314,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_skullcap_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#0D0902",
@@ -5327,7 +5327,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_scarfhood_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#7D838D",
@@ -5340,7 +5340,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_godhand_hood_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#4B4E53",
@@ -5353,7 +5353,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_saborianmask_chevron_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#747D84",
@@ -5366,7 +5366,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_saborianmask_diamond_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#858E95",
@@ -5379,7 +5379,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_saborianmask_eyes_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#858E95",
@@ -5392,7 +5392,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_saborianmask_sharp_scarf_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#858E95",
@@ -5407,7 +5407,7 @@
     "name": "Saborian Hood",
     "category": "",
     "iconName": "clothing/heads/2x2_head_saborianmask_hoodscarf_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#727B82",
@@ -5420,7 +5420,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_hood_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#A6AFBC",
@@ -5433,7 +5433,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_wrap_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#2D2C35",
@@ -5446,7 +5446,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_wandererVariantA_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#C2CBDA",
@@ -5459,7 +5459,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_wandererVariantA_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#BAC4D3",
@@ -5472,7 +5472,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_ponchoVariantA_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#C3CCDB",
@@ -5485,7 +5485,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_ponchoVariantA_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#BFC8D7",
@@ -5498,7 +5498,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_saborianuniform_godhand_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#7B828C",
@@ -5511,7 +5511,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_saborianuniform_godhand_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#A1AAB6",
@@ -5524,7 +5524,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_bandages_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#B5BECE",
@@ -5537,7 +5537,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_bandages_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#B4BDCD",
@@ -5552,7 +5552,7 @@
     "name": "Poncho",
     "category": "Clothing",
     "iconName": "clothing/torsos/2x3_torso_poncho_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "566B8E",
@@ -5582,7 +5582,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_poncho_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#BFC8D7",
@@ -5595,7 +5595,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_comboB_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#BCC6D5",
@@ -5608,7 +5608,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_comboB_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#BAC4D3",
@@ -5621,7 +5621,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_saborianuniform_3pip_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#7B828C",
@@ -5634,7 +5634,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_saborianuniform_3pip_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#A1AAB6",
@@ -5647,7 +5647,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_saborianuniform_2pip_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#788089",
@@ -5660,7 +5660,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_saborianuniform_2pip_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#6F7680",
@@ -5673,7 +5673,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_saborianuniform_1pip_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#7B828C",
@@ -5686,7 +5686,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_saborianuniform_1pip_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#6F7680",
@@ -5699,7 +5699,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_wrap_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#BAC4D3",
@@ -5712,7 +5712,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_wrap_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#B9C3D2",
@@ -5725,7 +5725,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_saborianuniform_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#ADB6C6",
@@ -5738,7 +5738,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_saborianuniform_stripe_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#ADB6C6",
@@ -5751,7 +5751,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_shinpads_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#BDC7D6",
@@ -5764,7 +5764,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_shortsVariantA_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#BDC7D6",
@@ -5777,7 +5777,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_reaver_raiderB_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#636C72",
@@ -5790,7 +5790,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_reaver_bandage_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#828892",
@@ -5803,7 +5803,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_reaver_porcupineVariantB_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#60676D",
@@ -5816,7 +5816,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_reaver_raider_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#60666B",
@@ -5829,7 +5829,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_reaverscarf_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#737A81",
@@ -5842,7 +5842,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_reaver_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#100C08",
@@ -5855,7 +5855,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_reaver_shark_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#221F1E",
@@ -5868,7 +5868,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_reaver_porcupine_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#60676D",
@@ -5881,7 +5881,7 @@
     "height": 2,
     "width": 2,
     "iconName": "clothing/heads/2x2_head_reaverscarf_VariantB_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Head",
     "metadata": {
       "PrimaryColor": "#8A949A",
@@ -5894,7 +5894,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_reaver_paddedvariantC_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#3F352E",
@@ -5907,7 +5907,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_reaver_paddedvariantC_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#433830",
@@ -5920,7 +5920,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_reaver_paddedvariantB_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#443931",
@@ -5933,7 +5933,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_reaver_paddedvariantB_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#423831",
@@ -5946,7 +5946,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_reaver_paddedvariantA_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#3F352E",
@@ -5959,7 +5959,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_reaver_paddedvariantA_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#3F352E",
@@ -5972,7 +5972,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_reaver_jacket_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#3F4247",
@@ -5985,7 +5985,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_reaver_jacket_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#9EA7B6",
@@ -5998,7 +5998,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_reaver_jacket_VariantB_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#96A0AF",
@@ -6011,7 +6011,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_reaver_jacket_VariantB_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#3F434A",
@@ -6024,7 +6024,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_reaver_bandage_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#AEB7C6",
@@ -6037,7 +6037,7 @@
     "height": 3,
     "width": 2,
     "iconName": "clothing/torsos/2x3_torso_reaver_bandage_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Body",
     "metadata": {
       "PrimaryColor": "#AAB3C0",
@@ -6050,7 +6050,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_reaver_paddedVariantB_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#B1BBCA",
@@ -6063,7 +6063,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_reaver_paddedVariantB_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#A1AAB6",
@@ -6076,7 +6076,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_reaver_paddedVariantA_male",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#B5BECE",
@@ -6089,7 +6089,7 @@
     "height": 4,
     "width": 2,
     "iconName": "clothing/legs/2x4_legs_reaver_paddedVariantA_female",
-    "equippable": true,
+    "equippable": false,
     "characterSlot": "Feet",
     "metadata": {
       "PrimaryColor": "#B5BECE",

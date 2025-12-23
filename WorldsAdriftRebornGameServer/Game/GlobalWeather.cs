@@ -50,35 +50,13 @@ namespace WorldsAdriftRebornGameServer.Game
 
         private static WeatherCell GenerateCell(int cellX, int cellZ)
         {
-            float center = (CellsPerAxis - 1) * 0.5f;
-            float dx = center - cellX;
-            float dz = center - cellZ;
-
-            float len = MathF.Sqrt(dx * dx + dz * dz);
-            if (len > 0f)
-            {
-                dx /= len;
-                dz /= len;
-            }
-
-            float wobble = ((float)_rng.NextDouble() - 0.5f) * (MathF.PI / 4f);
-            float cos = MathF.Cos(wobble);
-            float sin = MathF.Sin(wobble);
-
-            float wx = dx * cos - dz * sin;
-            float wz = dx * sin + dz * cos;
-
-            const float baseMagnitude = 8f;
-            float variation = 1f + ((float)_rng.NextDouble() - 0.5f) * 0.2f;
-            float magnitude = baseMagnitude * variation;
-
             return new WeatherCell
             {
                 Pressure = 0.5f,
                 Wind = new Vector3f(
-                    wx * magnitude,
+                    1,
                     0f,
-                    wz * magnitude
+                    -2f
                 )
             };
         }
