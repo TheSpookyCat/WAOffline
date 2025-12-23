@@ -4,19 +4,25 @@ using System.Text.Json.Serialization;
 using Assets.Scripts.Player;
 using Bossa.Travellers.Alliance;
 using Bossa.Travellers.Analytics;
+using Bossa.Travellers.Biomes;
 using Bossa.Travellers.Clock;
 using Bossa.Travellers.Controls;
 using Bossa.Travellers.Craftingstation;
+using Bossa.Travellers.Debugging;
 using Bossa.Travellers.Devconsole;
 using Bossa.Travellers.Ecs;
+using Bossa.Travellers.Gamedb;
+using Bossa.Travellers.Globaldata;
 using Bossa.Travellers.Interact;
 using Bossa.Travellers.Inventory;
 using Bossa.Travellers.Items;
 using Bossa.Travellers.Loot;
+using Bossa.Travellers.Materials;
 using Bossa.Travellers.Misc;
 using Bossa.Travellers.Player;
 using Bossa.Travellers.Refdata;
 using Bossa.Travellers.Rope;
+using Bossa.Travellers.Salvaging;
 using Bossa.Travellers.Scanning;
 using Bossa.Travellers.Ship.Lock;
 using Bossa.Travellers.Social;
@@ -58,7 +64,8 @@ namespace WorldsAdriftRebornGameServer.Game.Components
                 preComponentDatas.TryGetValue(componentId, out var preComponentData))
             {
                 Console.WriteLine($"DEBUG - Found pre-loaded component data {componentId} for entity {entityId}");
-                if (ReferenceEquals(preComponentData, null) && componentId == 1139) // temporary hack while investigating ECS issue
+                if (ReferenceEquals(preComponentData, null) &&
+                    componentId == 1139) // temporary hack while investigating ECS issue
                 {
                     var weatherFor = GlobalWeather.GetWeatherFor(entityId);
                     obj = weatherFor;
@@ -68,6 +75,106 @@ namespace WorldsAdriftRebornGameServer.Game.Components
                 {
                     obj = preComponentData;
                 }
+            }
+            // global entity
+            else if (componentId == 1229)
+            {
+                obj = new GlobalWallDataState.Data(new Map<string, float>
+                {
+                    { "windRiftVerticalWindMultiplier", 0.0f },
+                    { "windRiftHorizontalWindMultiplier", 0.0f },
+                    { "stormRiftWindMultiplier", 0.0f },
+                    { "sandstormWindMultiplier", 0.0f },
+                    { "worldEndWallWindMultiplier", 0.0f },
+                    { "windRiftGustBigStrength", 0.0f },
+                    { "windRiftGustBigMinTime", 0.0f },
+                    { "windRiftGustBigMaxTime", 0.0f },
+                    { "windRiftGustSmallStrength", 0.0f },
+                    { "windRiftGustSmallMinTime", 0.0f },
+                    { "windRiftGustSmallMaxTime", 0.0f },
+                    { "stormRiftGustBigStrength", 0.0f },
+                    { "stormRiftGustBigMinTime", 0.0f },
+                    { "stormRiftGustBigMaxTime", 0.0f },
+                    { "stormRiftGustSmallStrength", 0.0f },
+                    { "stormRiftGustSmallMinTime", 0.0f },
+                    { "stormRiftGustSmallMaxTime", 0.0f },
+                    { "sandstormGustBigStrength", 0.0f },
+                    { "sandstormGustBigMinTime", 0.0f },
+                    { "sandstormGustBigMaxTime", 0.0f },
+                    { "sandstormGustSmallStrength", 0.0f },
+                    { "sandstormGustSmallMinTime", 0.0f },
+                    { "sandstormGustSmallMaxTime", 0.0f },
+                    { "worldEndWallGustBigStrength", 0.0f },
+                    { "worldEndWallGustBigMinTime", 0.0f },
+                    { "worldEndWallGustBigMaxTime", 0.0f },
+                    { "worldEndWallGustSmallStrength", 0.0f },
+                    { "worldEndWallGustSmallMinTime", 0.0f },
+                    { "worldEndWallGustSmallMaxTime", 0.0f },
+                    { "stormRiftTorqueLerpFactor", 0.0f },
+                    { "stormRiftTorqueChangeMinTime", 0.0f },
+                    { "stormRiftTorqueChangeMaxTime", 0.0f },
+                    { "stormRiftMinTorque", 0.0f },
+                    { "stormRiftMaxTorque", 0.0f },
+                    { "stormRiftTorqueDampeningZoneStart", 0.0f },
+                    { "stormRiftTorqueDampeningZoneEnd", 0.0f },
+                    { "sandstormTorqueLerpFactor", 0.0f },
+                    { "sandstormTorqueChangeMinTime", 0.0f },
+                    { "sandstormTorqueChangeMaxTime", 0.0f },
+                    { "sandstormMinTorque", 0.0f },
+                    { "sandstormMaxTorque", 0.0f },
+                    { "sandstormTorqueDampeningZoneStart", 0.0f },
+                    { "sandstormTorqueDampeningZoneEnd", 0.0f },
+                    { "worldEndWallTorqueLerpFactor", 0.0f },
+                    { "worldEndWallTorqueChangeMinTime", 0.0f },
+                    { "worldEndWallTorqueChangeMaxTime", 0.0f },
+                    { "worldEndWallMinTorque", 0.0f },
+                    { "worldEndWallMaxTorque", 0.0f },
+                    { "worldEndWallTorqueDampeningZoneStart", 0.0f },
+                    { "worldEndWallTorqueDampeningZoneEnd", 0.0f }
+                });
+            }
+            else if (componentId == 1250)
+            {
+                obj = new WorldBoundsDataState.Data(WorldMapData.Instance.WorldInfo.WorldEdgeLength, -1000, 1000);
+            }
+            else if (componentId == 8064)
+            {                        
+                obj = new DevBiome.Data(new DevBiomeData(new Map<BiomeType, bool>()));
+            }
+            else if (componentId == 1253)
+            {
+                var biomes = new Improbable.Collections.List<BiomeVoronoiCentre>();
+                var counts = new Improbable.Collections.List<int>();
+                foreach (var biome in WorldMapData.Instance.Biomes)
+                {
+                    var biomeType = (BiomeType)biome.Type;
+                    biomes.Add(new BiomeVoronoiCentre(biome.x, biome.z, biomeType, (CivilizationType) biome.Civ));
+                    counts.Add(biomeType == BiomeType.Biome4 ? 0 : 10);
+                }
+
+                obj = new GlobalBiomeVoronoiCentresState.Data(biomes, counts);
+            }
+            else if (componentId == 1333)
+            {
+                obj = new BugFixState.Data(new Improbable.Collections.List<Fixes> { });
+            }
+            else if (componentId == 1307)
+            {
+                obj = new GlobalKnowledgeGraphDataState.Data("{\"unlockedByLifetimeKnowledge\": {\"schematics\": {\"Shipbuilding\": 100}}}");
+            }
+            else if (componentId == 8063)
+            {
+                obj = new GameDBState.Data(999, 999);
+            }
+            // multitool, repairer
+            else if (componentId == 2002)
+            {
+                obj = new MultitoolRepairerState.Data(false, false);
+            }
+            // multitool, salvager
+            else if (componentId == 2106)
+            {
+                obj = new MultitoolSalvagerState.Data(false, false, false);
             }
             else if (componentId == 8065)
             {
@@ -139,26 +246,33 @@ namespace WorldsAdriftRebornGameServer.Game.Components
             {
                 var clothing = new Improbable.Collections.List<ScalaSlottedInventoryItem>();
                 var data = ActivePlayerHelper.GetLoggedInData();
-                
+
                 var start = 9100;
                 if (data != null)
                 {
                     foreach (var kvp in JsonConvert
-                                 .DeserializeObject<Dictionary<CharacterSlotType, CharacterCustomisationVisualizer.ItemData>>(
+                                 .DeserializeObject<Dictionary<CharacterSlotType,
+                                     CharacterCustomisationVisualizer.ItemData>>(
                                      data.Value.CosmeticsJson))
                     {
                         if (string.IsNullOrEmpty(kvp.Value.Prefab))
                         {
-                            Console.WriteLine($"WARNING - Skipped slot {kvp.Key} {kvp.Value.ToString()} because no prefab");
-                            continue;
-                        }
-                        if (!ItemHelper.AllItems.TryGetValue(kvp.Value.Prefab, out var itemDef))
-                        {
-                            Console.WriteLine($"WARNING - Skipping {kvp.Value.Prefab} - no item defined in itemData.json");
+                            Console.WriteLine(
+                                $"WARNING - Skipped slot {kvp.Key} {kvp.Value.ToString()} because no prefab");
                             continue;
                         }
 
-                        clothing.Add(ItemHelper.MakeItem(start, kvp.Value.Prefab, amount: 1, slotted: true, stashItem: true, metaOverrides: ItemHelper.GenerateMetaFromColorProps(kvp.Value.ColorProps).ToDictionary(k => k.Key, v => v.Value)));
+                        if (!ItemHelper.AllItems.TryGetValue(kvp.Value.Prefab, out var itemDef))
+                        {
+                            Console.WriteLine(
+                                $"WARNING - Skipping {kvp.Value.Prefab} - no item defined in itemData.json");
+                            continue;
+                        }
+
+                        clothing.Add(ItemHelper.MakeItem(start, kvp.Value.Prefab, amount: 1, slotted: true,
+                            stashItem: true,
+                            metaOverrides: ItemHelper.GenerateMetaFromColorProps(kvp.Value.ColorProps)
+                                                     .ToDictionary(k => k.Key, v => v.Value)));
                         start++;
                         Console.WriteLine($"INFO - Created {kvp.Value.Prefab} clothing item");
                     }
@@ -167,6 +281,7 @@ namespace WorldsAdriftRebornGameServer.Game.Components
                 {
                     Console.WriteLine("WARNING - Cosmetic Data was null");
                 }
+
                 var stashItems = ItemHelper.GetStashItems(true, true, true);
                 stashItems.AddRange(clothing);
                 InventoryState.Data iData = new InventoryState.Data(new InventoryStateData(100,
@@ -195,6 +310,7 @@ namespace WorldsAdriftRebornGameServer.Game.Components
                     name = data.Value.Name;
                     cuid = data.Value.CharacterUid;
                 }
+
                 PlayerName.Data pData =
                     new PlayerName.Data(new PlayerNameData(name, "id", cuid, "bossaToken", "bossaId"));
 
@@ -217,7 +333,11 @@ namespace WorldsAdriftRebornGameServer.Game.Components
                 else
                 {
                     customisations = new Map<string, string>();
-                    var cosmetics = JsonConvert.DeserializeObject<Dictionary<CharacterSlotType, CharacterCustomisationVisualizer.ItemData>>(data.Value.CosmeticsJson);
+                    var cosmetics =
+                        JsonConvert
+                            .DeserializeObject<
+                                Dictionary<CharacterSlotType, CharacterCustomisationVisualizer.ItemData>>(data.Value
+                                .CosmeticsJson);
                     foreach (var kvp in cosmetics)
                     {
                         var k = kvp.Key.ToString();
@@ -226,6 +346,7 @@ namespace WorldsAdriftRebornGameServer.Game.Components
                         Console.WriteLine($"INFO - Got customisation ({kvp.Value.Id}): {k} = {p}");
                     }
                 }
+
                 PlayerPropertiesState.Data ppData = new PlayerPropertiesState.Data(new PlayerPropertiesStateData(
                     new Map<string, string> { },
                     customisations,
@@ -365,10 +486,7 @@ namespace WorldsAdriftRebornGameServer.Game.Components
             {
                 SchematicsLearnerClientState.Data scData = new SchematicsLearnerClientState.Data(
                     new SchematicsLearnerClientStateData(new Improbable.Collections.List<string> { },
-                        new Improbable.Collections.List<string>
-                        {
-                            "glider"
-                        },
+                        new Improbable.Collections.List<string> { "glider" },
                         10,
                         20,
                         10,
@@ -409,7 +527,7 @@ namespace WorldsAdriftRebornGameServer.Game.Components
             else if (componentId == 1003)
             {
                 PlayerCraftingInteractionState.Data pcisData =
-                    new PlayerCraftingInteractionState.Data(new EntityId(1), true);
+                    new PlayerCraftingInteractionState.Data(new EntityId(entityId), false);
 
                 obj = pcisData;
             }
@@ -418,7 +536,11 @@ namespace WorldsAdriftRebornGameServer.Game.Components
                 CraftingStationClientState.Data csData = new CraftingStationClientState.Data(
                     new CraftingStationClientStateData("glider",
                         "owner",
-                        new Improbable.Collections.List<SlottedMaterial> { },
+                        new Improbable.Collections.List<SlottedMaterial>
+                        {
+                            new SlottedMaterial(0, new RawMaterial("gold", 1, "Metal", new Map<string, string>()),
+                                10, null)
+                        },
                         new Improbable.Collections.List<Cipher> { },
                         12,
                         30f,
@@ -474,8 +596,8 @@ namespace WorldsAdriftRebornGameServer.Game.Components
             else if (componentId == 1073)
             {
                 ClientAuthoritativePlayerState.Data capData = new ClientAuthoritativePlayerState.Data(
-                    new ClientAuthoritativePlayerStateData(Vector3f.ZERO, 
-                        Quaternion.Identity, 
+                    new ClientAuthoritativePlayerStateData(Vector3f.ZERO,
+                        Quaternion.Identity,
                         new EntityId(-1),
                         0,
                         100,
@@ -522,7 +644,9 @@ namespace WorldsAdriftRebornGameServer.Game.Components
                 try
                 {
                     d = GlobalWeather.GetWeatherFor(entityId);
-                } catch {}
+                }
+                catch { }
+
                 WeatherCellState.Data wcData =
                     d ?? new WeatherCellState.Data(new WeatherCellStateData(1f, new Vector3f(0f, 0f, 0f)));
 
@@ -538,7 +662,7 @@ namespace WorldsAdriftRebornGameServer.Game.Components
                         1234,
                         false,
                         1,
-                        new Improbable.Collections.List<EntityId> {  }));
+                        new Improbable.Collections.List<EntityId> { }));
                 obj = ilData;
             }
             else if (componentId == 1041)
@@ -614,7 +738,7 @@ namespace WorldsAdriftRebornGameServer.Game.Components
             else if (componentId == 1097)
             {
                 ReferenceDataState.Data referenceData = new ReferenceDataState.Data(new ReferenceDataStateData(
-                    new EntityId(-1),
+                    new EntityId(WorldsAdriftRebornGameServer.GlobalEntityId),
                     "",
                     new Map<string, string>(),
                     new Map<string, string>(),

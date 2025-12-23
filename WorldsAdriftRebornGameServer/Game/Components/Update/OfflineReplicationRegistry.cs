@@ -111,6 +111,7 @@ namespace WorldsAdriftRebornGameServer.Game.Components.Update
                 }
             }
 
+            // Causing issues with glider
             foreach (var celldata in GlobalWeather.GetAllCells())
             {
                 var entityId = WorldsAdriftRebornGameServer.NextEntityId;
@@ -127,8 +128,35 @@ namespace WorldsAdriftRebornGameServer.Game.Components.Update
                         0
                     ),
                     [ComponentDatabase.MetaclassToId<WeatherCellState>()] = new WeatherCellState.Data(celldata.cell.Pressure, celldata.cell.Wind)
-                } ,10000f));
+                } ,1000f));
             }
+        }
+        
+        public static DistanceReplicatedEntity? GetNearestByPrefab(
+            Vector3f position,
+            string prefab)
+        {
+            DistanceReplicatedEntity? nearest = null;
+            float bestDistSqr = float.MaxValue;
+
+            foreach (var e in AllEntities)
+            {
+                if (!string.Equals(e.Prefab, prefab, StringComparison.Ordinal))
+                    continue;
+
+                float dx = e.Position.X - position.X;
+                float dy = e.Position.Y - position.Y;
+                float dz = e.Position.Z - position.Z;
+
+                float distSqr = dx * dx + dy * dy + dz * dz;
+                if (distSqr >= bestDistSqr)
+                    continue;
+
+                bestDistSqr = distSqr;
+                nearest = e;
+            }
+
+            return nearest;
         }
     }
 }

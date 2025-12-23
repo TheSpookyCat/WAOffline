@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bossa.Travellers.Craftingstation;
+﻿using Bossa.Travellers.Craftingstation;
 using WorldsAdriftRebornGameServer.DLLCommunication;
 using WorldsAdriftRebornGameServer.Networking.Wrapper;
 
@@ -20,13 +14,11 @@ namespace WorldsAdriftRebornGameServer.Game.Components.Update.Handlers
         }
         public override void HandleUpdate( ENetPeerHandle player, long entityId, PlayerCraftingInteractionState.Update clientComponentUpdate, PlayerCraftingInteractionState.Data serverComponentData)
         {
+            Console.WriteLine("Received PlayerCraftingInteractionState update");
             clientComponentUpdate.ApplyTo(serverComponentData);
             PlayerCraftingInteractionState.Update serverComponentUpdate = (PlayerCraftingInteractionState.Update)serverComponentData.ToUpdate();
 
-            PlayerCraftingInteractionState.Update test = new PlayerCraftingInteractionState.Update();
-            object o = test;
-
-            SendOPHelper.SendComponentUpdateOp(player, entityId, new List<uint> { ComponentId }, new List<object> { serverComponentUpdate });
+            SendOPHelper.SendComponentUpdateOp(player, entityId, new List<uint> { ComponentId }, new List<object> { clientComponentUpdate });
         }
     }
 }

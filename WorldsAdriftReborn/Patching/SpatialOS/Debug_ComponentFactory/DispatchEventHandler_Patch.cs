@@ -54,36 +54,36 @@ namespace WorldsAdriftReborn.Patching.SpatialOS.Debug_ComponentFactory
         }
 
         // this is just a debug patch to serialize a SchematicData json
-        [HarmonyPostfix]
-        public static void RegisterComponentFactories_Postfix()
-        {
-            SchematicData data = new SchematicData();
-
-            data.amountToCraft = 1;
-            data.baseHp = 100f;
-            data.baseStats = new Dictionary<string, float>();
-            data.category = "Personal";
-            data.cipherSlots = new System.Collections.Generic.List<Map<string, string>>();
-            data.craftingRequirements = new CraftingItemData[0];
-            data.description = "wolo";
-            data.hullData = "hullData";
-            data.iconId = "crafted items/3x4_glider";
-            data.itemType = "hmm";
-            data.modules = new Map<string, string>();
-            data.rarity = 1;
-            data.referenceData = "glider";
-            data.schematicId = "glider";
-            data.SchematicType = SchematicType.Fixed;
-            data.timeToCraft = 10;
-            data.title = "cool glider";
-            data.unlearnable = false;
-            data.uUID = "glider";
-
-            Dictionary<string, SchematicData> dict = new Dictionary<string, SchematicData>();
-            dict.Add("glider", data);
-
-            Debug.Log("HERE IT COMES");
-            Debug.Log(JsonConvert.SerializeObject(dict));
-        }
+        // [HarmonyPostfix]
+        // public static void RegisterComponentFactories_Postfix()
+        // {
+        //     SchematicData data = new SchematicData();
+        //
+        //     data.amountToCraft = 1;
+        //     data.baseHp = 100f;
+        //     data.baseStats = new Dictionary<string, float>();
+        //     data.category = "Personal";
+        //     data.cipherSlots = new System.Collections.Generic.List<Map<string, string>>();
+        //     data.craftingRequirements = new CraftingItemData[0];
+        //     data.description = "wolo";
+        //     data.hullData = "hullData";
+        //     data.iconId = "crafted items/3x4_glider";
+        //     data.itemType = "hmm";
+        //     data.modules = new Map<string, string>();
+        //     data.rarity = 1;
+        //     data.referenceData = "glider";
+        //     data.schematicId = "glider";
+        //     data.SchematicType = SchematicType.Fixed;
+        //     data.timeToCraft = 10;
+        //     data.title = "cool glider";
+        //     data.unlearnable = false;
+        //     data.uUID = "glider";
+        //
+        //     Dictionary<string, SchematicData> dict = new Dictionary<string, SchematicData>();
+        //     dict.Add("glider", data);
+        //
+        //     Debug.Log("HERE IT COMES");
+        //     Debug.Log(JsonConvert.SerializeObject(dict));
+        // }
     }
 }

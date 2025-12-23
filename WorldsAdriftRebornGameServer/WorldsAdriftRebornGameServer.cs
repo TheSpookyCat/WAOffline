@@ -68,10 +68,14 @@ namespace WorldsAdriftRebornGameServer
             190602, // TransformState
             
             1098, // RopeControlPoints | Used by RopeObserver
+            
+            2002, // MultitoolRepairerState | Used by PlayerMultitoolVisualizer
+            2106, // MultitoolSalvagerState | Used by PlayerMultitoolVisualizer
         };
         private static System.Collections.Generic.List<long> playerEntityIDs = new System.Collections.Generic.List<long>();
 
-        private static long nextEntityId = 1;
+        public const long GlobalEntityId = 1;
+        private static long nextEntityId = 2;
         public static long NextEntityId
         {
             get
@@ -183,6 +187,40 @@ namespace WorldsAdriftRebornGameServer
                             (ENetPeerHandle)o, "notNeeded?", island, "notNeeded?");
                     }));
             }
+            
+            syncSteps.Add(new SyncStep(
+                GameState.NextStateRequirement.ADDED_ENTITY_RESPONSE,
+                o =>
+                {
+                    if (!SendOPHelper.SendAddEntityOP(
+                            (ENetPeerHandle)o,
+                            GlobalEntityId,
+                            "GlobalEntity",
+                            "notNeeded?"))
+                    {
+                        Console.WriteLine("[error] failed to serialize and queue AddEntityOp.");
+                    }
+                }
+            ));
+            
+            syncSteps.Add(new SyncStep(
+                GameState.NextStateRequirement.ADDED_ENTITY_RESPONSE,
+                o =>
+                {
+                    var weatherCell =
+                        OfflineReplicationRegistry.GetNearestByPrefab(new Vector3f(0, 0, 0), "WeatherCell");
+                    
+                    if (weatherCell == null || !SendOPHelper.SendAddEntityOP(
+                            (ENetPeerHandle)o,
+                            weatherCell.Value.EntityId,
+                            weatherCell.Value.Prefab,
+                            "notNeeded?"))
+                    {
+                        Console.WriteLine("[error] failed to serialize and queue AddEntityOp.");
+                    }
+                }
+            ));
+            
             // Keep the current 0,0,0 island for spawning simplicity
             syncSteps.Add(new SyncStep(
                 GameState.NextStateRequirement.ADDED_ENTITY_RESPONSE,
