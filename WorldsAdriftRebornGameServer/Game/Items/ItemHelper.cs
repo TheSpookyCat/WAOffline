@@ -1,7 +1,9 @@
 ﻿using System.Reflection;
 using System.Text.Json;
+using Assets.Scripts.Player;
 using Bossa.Travellers.Inventory;
 using Improbable.Collections;
+using UnityEngine;
 
 namespace WorldsAdriftRebornGameServer.Game.Items
 {
@@ -117,12 +119,10 @@ namespace WorldsAdriftRebornGameServer.Game.Items
         public static Map<string, string> BundleDescriptions() => new() { { "steamInvBundle-xmas_present", AllItems["steamInvBundle-xmas_present"].description } };
 
         public static Improbable.Collections.List<ScalaSlottedInventoryItem> GetStashItems( bool steam = false,
-            bool pioneer = false, bool founders = false, bool dev = false )
+            bool pioneer = false, bool founders = false)
         {
             var i = new Improbable.Collections.List<ScalaSlottedInventoryItem>();
 
-            if (dev)
-                i.AddRange(DevItems());
             if (founders)
                 i.AddRange(FoundersItems());
             if (pioneer)
@@ -145,17 +145,6 @@ namespace WorldsAdriftRebornGameServer.Game.Items
                 //MakeItem(1100, "gold", 2, 3, 40, 9),
                 MakeItem(1101, "glider"),
                 MakeItem(1102, "torso_poncho", 0, 4),
-                MakeItem(1103, "head_devhat", 3, 0)
-            };
-        }
-
-        private static System.Collections.Generic.List<ScalaSlottedInventoryItem> DevItems()
-        {
-            return new System.Collections.Generic.List<ScalaSlottedInventoryItem>
-            {
-                MakeItem(6, "head_olk", stashItem: true),
-                MakeItem(7, "head_devhat", stashItem: true),
-                MakeItem(8, "torso_devjacket", stashItem: true)
             };
         }
 
@@ -195,6 +184,18 @@ namespace WorldsAdriftRebornGameServer.Game.Items
                 MakeItem(29, "torso_christmas_2018", stashItem: true),
                 MakeItem(30, "legs_christmas_2018", stashItem: true),
             };
+        }
+        
+        public static Map<string, string> GenerateMetaFromColorProps(ColorProperties props)
+        {
+            var meta = new Map<string, string>();
+
+            meta["PrimaryColor"]   = "#" + ColorUtility.ToHtmlStringRGBA(props.PrimaryColor);
+            meta["SecondaryColor"] = "#" + ColorUtility.ToHtmlStringRGBA(props.SecondaryColor);
+            meta["TertiaryColor"]  = "#" + ColorUtility.ToHtmlStringRGBA(props.TertiaryColor);
+            meta["SpecColor"]      = "#" + ColorUtility.ToHtmlStringRGBA(props.SpecColor);
+
+            return meta;
         }
     }
 }

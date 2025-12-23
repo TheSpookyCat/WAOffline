@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using WorldsAdriftServer.Handlers.CharacterScreen;
 using WorldsAdriftServer.Server;
 
 namespace WorldsAdriftServer
@@ -7,6 +8,7 @@ namespace WorldsAdriftServer
     {
         static void Main( string[] args )
         {
+            CharacterDatabase.Setup();
             int restPort = 8080;
 
             RequestRouterServer restServer = new RequestRouterServer(IPAddress.Any, restPort);
@@ -16,7 +18,6 @@ namespace WorldsAdriftServer
 
             Console.WriteLine("enter something to stop");
             Console.ReadKey();
-
             restServer.Stop();
         }
     }

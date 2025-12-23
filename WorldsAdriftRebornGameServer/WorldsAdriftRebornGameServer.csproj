@@ -10,6 +10,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.1" />
         <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0-preview.2.23128.3"/>
     </ItemGroup>
 
@@ -27,6 +28,15 @@
         </Reference>
         <Reference Include="Improbable.WorkerSdkCsharp">
             <HintPath>$(WorldsAdriftGameDir)\UnityClient@Windows_Data\Managed\Improbable.WorkerSdkCsharp.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp">
+            <HintPath>$(WorldsAdriftGameDir)\UnityClient@Windows_Data\Managed\Assembly-CSharp.dll</HintPath>
+        </Reference>
+        <Reference Include="Newtonsoft.Json">
+          <HintPath>..\.installation\UnityClient@Windows_Data\Managed\Newtonsoft.Json.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine">
+            <HintPath>$(WorldsAdriftGameDir)\UnityClient@Windows_Data\Managed\UnityEngine.dll</HintPath>
         </Reference>
         <Reference Include="Improbable.WorkerSdkCsharp.Framework">
             <HintPath>$(WorldsAdriftGameDir)\UnityClient@Windows_Data\Managed\Improbable.WorkerSdkCsharp.Framework.dll</HintPath>
@@ -46,6 +56,7 @@
     <Target Name="StripPrivateAssemblies" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
         <ItemGroup>
             <PrivateAssemblies Include="
+      Assembly-CSharp.dll
       Improbable.WorkerSdkCsharp.dll;
       Improbable.WorkerSdkCsharp.Framework.dll;
       Generated.Code.dll;

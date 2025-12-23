@@ -28,15 +28,15 @@ namespace WorldsAdriftServer.Handlers
                 }
                 else if (request.Method == "GET" && request.Url.Contains("/characterList/") && request.Url.Contains("/steam/1234"))
                 {
-                    CharacterListHandler.HandleCharacterListRequest(this, request, "community_server");
+                    CharacterListHandler.HandleCharacterListRequest(this, request, "local_server");
                 }
                 else if (request.Method == "POST" && request.Url.Contains("/reserveCharacterSlot/") && request.Url.Contains("/steam/1234"))
                 {
-                    // no need to handle this as we provide the needed data in HandleCharacterListRequest()
+                    CharacterListHandler.HandleReserveSlot(this, request);
                 }
                 else if(request.Method == "GET" && request.Url == "/deploymentStatus")
                 {
-                    DeploymentStatusHandler.HandleDeploymentStatusRequest(this, request, "awesome community server", "community_server", 0);
+                    DeploymentStatusHandler.HandleDeploymentStatusRequest(this, request, Environment.MachineName, "local_server", 0);
                 }
                 else if(request.Method == "GET" && request.Url == "/authorizeCharacter")
                 {
@@ -45,6 +45,18 @@ namespace WorldsAdriftServer.Handlers
                 else if(request.Method == "POST" && request.Url.Contains("/character/") && request.Url.Contains("/steam/1234/"))
                 {
                     CharacterSaveHandler.HandleCharacterSave(this, request);
+                }
+                else if(request.Method == "DELETE" && request.Url.Contains("/character/") && request.Url.Contains("/steam/1234/"))
+                {
+                    CharacterSaveHandler.HandleCharacterDelete(this, request);
+                }
+                else if (request.Method == "POST" && request.Url == "/player/reserveName")
+                {
+                    CharacterListHandler.HandleReserveName(this, request);
+                }
+                else
+                {
+                    Console.WriteLine($"UNHANDLED REQUEST: {request.Url}");
                 }
             }
         }

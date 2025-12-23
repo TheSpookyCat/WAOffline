@@ -13,6 +13,24 @@ namespace WorldsAdriftServer.Handlers.CharacterScreen
          */
         internal static void HandleCharacterAuth(HttpSession session, HttpRequest request )
         {
+            var characterUid = "";
+            for (int i = 0; i < request.Headers; i++)
+            {
+                var header = request.Header(i);
+                if (!header.Item1.Equals("characterUid", StringComparison.OrdinalIgnoreCase))
+                {
+                    continue;
+                }
+
+                characterUid = header.Item2;
+                break;
+            }
+
+            if (!string.IsNullOrEmpty(characterUid))
+            {
+                CharacterDatabase.SetLoggedInCharacter(characterUid);
+            }
+            
             HttpResponse resp = new HttpResponse();
             CharacterAuthResponse authResp = new CharacterAuthResponse("token", "1", 123, "12.12.12", true);
 

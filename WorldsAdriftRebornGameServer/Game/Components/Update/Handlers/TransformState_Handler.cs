@@ -1,139 +1,15 @@
 ﻿using System.ComponentModel;
 using Bossa.Travellers.Inventory;
 using Bossa.Travellers.Player;
-using Bossa.Travellers.Weather;
-using Improbable.Collections;
 using Improbable.Corelibrary.Math;
 using Improbable.Corelibrary.Transforms;
 using Improbable.Math;
-using Improbable.Worker.Internal;
 using WorldsAdriftRebornGameServer.DLLCommunication;
 using WorldsAdriftRebornGameServer.Game.Items;
 using WorldsAdriftRebornGameServer.Networking.Wrapper;
 
 namespace WorldsAdriftRebornGameServer.Game.Components.Update.Handlers
 {
-    public readonly struct DistanceReplicatedEntity
-    {
-        public readonly long EntityId;
-        public readonly Vector3f Position;
-        public readonly string Prefab;
-        public readonly Dictionary<uint, object> InitialDataInstances;
-
-        public DistanceReplicatedEntity(long entityId, Vector3f position, string prefab, Dictionary<uint, object> datas)
-        {
-            EntityId = entityId;
-            Position = position;
-            Prefab = prefab;
-            InitialDataInstances = datas;
-        }
-    }
-    
-    public static class DistanceReplicationRegistry
-    {
-        public static readonly System.Collections.Generic.List<DistanceReplicatedEntity> AllEntities = new();
-        private static bool registered = false;
-
-        public static void RegisterEntities()
-        {
-            if (registered) return;
-            registered = true;
-            foreach (var island in WorldMapData.Instance.Islands)
-            {
-                var entityId = WorldsAdriftRebornGameServer.NextEntityId;
-                var prefab = island.Island.Replace(".json", "") + "@Island";
-
-                var pos = new Vector3f(island.x, island.y, island.z);
-
-                AllEntities.Add(new DistanceReplicatedEntity(
-                    entityId,
-                    pos,
-                    prefab,
-                    new Dictionary<uint, object>
-                    {
-                        [ComponentDatabase.MetaclassToId<TransformState>()] = new TransformState.Data(
-                            TransformState_Handler.CreateFixedVector(pos.X, pos.Y, pos.Z),
-                            new Quaternion32(1023),
-                            new Option<Parent>(),
-                            Vector3d.ZERO,
-                            Vector3f.ZERO,
-                            Vector3f.ZERO,
-                            false,
-                            1000
-                        )
-                    }
-                ));
-            }
-
-            var wallId = 0;
-            foreach (var wall in WorldMapData.Instance.Walls)
-            {
-                float x1 = wall.x1;
-                float z1 = wall.z1;
-                float x2 = wall.x2;
-                float z2 = wall.z2;
-
-                float dx = x2 - x1;
-                float dz = z2 - z1;
-
-                float totalLength = MathF.Sqrt(dx * dx + dz * dz);
-                if (totalLength <= 0.001f)
-                    continue;
-
-                Vector3d forward = new Vector3d(dx, 0, dz);
-                var mag = Math.Sqrt(forward.X * forward.X + forward.Y * forward.Y + forward.Z * forward.Z);
-                var rot = forward / mag;
-
-                const float segmentMaxSize = 800;
-                int fullSegments = (int)(totalLength / segmentMaxSize);
-                float remainder = totalLength - (fullSegments * segmentMaxSize);
-                int totalSegments = remainder > 0 ? fullSegments + 1 : fullSegments;
-
-                Vector3d start = new Vector3d(x1, 0, z1);
-                float covered = 0f;
-
-                ++wallId;
-                for (int i = 0; i < totalSegments; i++)
-                {
-                    float segLength =
-                        (i == totalSegments - 1 && remainder > 0)
-                            ? remainder
-                            : segmentMaxSize;
-
-                    float half = segLength * 0.5f;
-                    Vector3d pos = start + rot * (covered + half);
-                    covered += segLength;
-
-                    var wallPos = new Vector3f((float)pos.X, 0f, (float)pos.Z);
-                    AllEntities.Add(new DistanceReplicatedEntity(
-                        WorldsAdriftRebornGameServer.NextEntityId,
-                        wallPos,
-                        "WallSegment",
-                        new Dictionary<uint, object>
-                        {
-                            [ComponentDatabase.MetaclassToId<WallSegmentState>()] = new WallSegmentState.Data(
-                                wall.Type,
-                                wallId,
-                                rot,
-                                half
-                            ),
-                            [ComponentDatabase.MetaclassToId<TransformState>()] = new TransformState.Data(
-                                TransformState_Handler.CreateFixedVector(wallPos.X, wallPos.Y, wallPos.Z),
-                                new Quaternion32(1023),
-                                new Option<Parent>(),
-                                Vector3d.ZERO,
-                                Vector3f.ZERO,
-                                Vector3f.ZERO,
-                                false,
-                                1000
-                            )
-                        }
-                    ));
-                }
-            }
-        }
-    }
-
     [RegisterComponentUpdateHandler]
     internal class TransformState_Handler : IComponentUpdateHandler<TransformState, TransformState.Update, TransformState.Data>
     {
@@ -142,9 +18,7 @@ namespace WorldsAdriftRebornGameServer.Game.Components.Update.Handlers
         public static Dictionary<long, (Vector3f position, string prefab, Vector3f rotation)> ReplicatedByDistance =
             new Dictionary<long, (Vector3f position, string prefab, Vector3f rotation)>();
 
-        private const float MaxDistance = 6000f;
-        private const float MaxDistanceSqr = MaxDistance * MaxDistance;
-        private static readonly Dictionary<long, HashSet<long>> SpawnedForPlayer = new();
+        public static readonly Dictionary<long, HashSet<long>> SpawnedForPlayer = new();
         private static readonly Dictionary<long, DateTime> LastCheckTime = new();
         private static readonly TimeSpan CheckInterval = TimeSpan.FromSeconds(60);
         
@@ -195,23 +69,29 @@ namespace WorldsAdriftRebornGameServer.Game.Components.Update.Handlers
 
             try
             {
-                foreach (var candidate in DistanceReplicationRegistry.AllEntities)
+                var toAdd = new System.Collections.Generic.List<(DistanceReplicatedEntity, float)>();
+                foreach (var candidate in OfflineReplicationRegistry.AllEntities)
                 {
                     token.ThrowIfCancellationRequested();
-                    await Task.Delay(1, token);
 
                     if (spawned.Contains(candidate.EntityId))
                         continue;
 
-                    var delta = candidate.Position - playerPos;
-                    var distSqr =
-                        delta.X * delta.X +
-                        delta.Y * delta.Y +
-                        delta.Z * delta.Z;
+                    var dx = candidate.Position.X - playerPos.X;
+                    var dz = candidate.Position.Z - playerPos.Z;
+                    var distSqr = dx * dx + dz * dz;
 
-                    if (distSqr > MaxDistanceSqr)
+                    if (distSqr > candidate.ReplicationDistance * candidate.ReplicationDistance)
                         continue;
 
+                    toAdd.Add((candidate, distSqr));
+                }
+                toAdd.Sort((x, y) => x.Item2.CompareTo(y.Item2));
+                
+                foreach (var tuple in toAdd)
+                {
+                    token.ThrowIfCancellationRequested();
+                    var candidate = tuple.Item1;
                     foreach (var data in candidate.InitialDataInstances)
                     {
                         WorldsAdriftRebornGameServer.AddComponent(
@@ -231,7 +111,7 @@ namespace WorldsAdriftRebornGameServer.Game.Components.Update.Handlers
                     }
 
                     await Task.Delay(delayMs, token);
-                }
+                } 
             }
             catch (OperationCanceledException)
             {
@@ -254,15 +134,19 @@ namespace WorldsAdriftRebornGameServer.Game.Components.Update.Handlers
             {
                 var now = DateTime.UtcNow;
 
-                if (!LastCheckTime.TryGetValue(entityId, out var last)
-                    || now - last > CheckInterval)
+                if (!LastCheckTime.TryGetValue(entityId, out var last))
+                {
+                    last = now + CheckInterval;
+                    LastCheckTime[entityId] = last;
+                }
+                if (now - last > CheckInterval)
                 {
                     LastCheckTime[entityId] = now;
 
                     var pos = clientComponentUpdate.localPosition.Value;
                     var playerPos = CreateVector3f(pos);
                     Console.WriteLine($"Starting replication sync at {playerPos.ToString()}");
-                    _ = SpawnNearbyEntitiesAsync(player, entityId, playerPos, 1500);
+                    _ = SpawnNearbyEntitiesAsync(player, entityId, playerPos, 2500);
                 }
             }
 

@@ -105,7 +105,7 @@ namespace WorldsAdriftRebornGameServer.Networking.Wrapper
                         continue;
                     }
 
-                    Console.WriteLine("[success] initialized and serialized componentId " + interests[i].ComponentId);
+                    // Console.WriteLine("[success] initialized and serialized componentId " + interests[i].ComponentId);
                     Structs.Structs.AddComponentOp component;
 
                     component.ComponentId = interests[i].ComponentId;
@@ -167,7 +167,7 @@ namespace WorldsAdriftRebornGameServer.Networking.Wrapper
 
                 if (len > 0)
                 {
-                    Console.WriteLine("[success] serialized stored component after update. " + componentId[i] + ")");
+                    // Console.WriteLine("[success] serialized stored component after update. " + componentId[i] + ")");
 
                     cupdate.ComponentId = componentId[i];
                     cupdate.ComponentData = cbuffer;
@@ -187,7 +187,7 @@ namespace WorldsAdriftRebornGameServer.Networking.Wrapper
 
                 if (ptr != null && len > 0)
                 {
-                    Console.WriteLine("[success] serialized ComponentUpdateOp message for client.");
+                    // Console.WriteLine("[success] serialized ComponentUpdateOp message for client.");
 
                     EnetLayer.ENet_Send(destination, (int)EnetLayer.ENetChannel.COMPONENT_UPDATE_OP, ptr, len,
                         (int)ENetPacketFlag.RELIABLE);
@@ -200,10 +200,10 @@ namespace WorldsAdriftRebornGameServer.Networking.Wrapper
         }
 
         public static unsafe bool SendAuthorityChangeOp( ENetPeerHandle destination, long entityId,
-            List<uint> components )
+            List<uint> components, bool hasAuthority = true )
         {
             fixed (Structs.Structs.AuthorityChangeOp* authChangeOps =
-                       components.Select(p => new Structs.Structs.AuthorityChangeOp(p, true)).ToArray())
+                       components.Select(p => new Structs.Structs.AuthorityChangeOp(p, hasAuthority)).ToArray())
             {
                 int len = 0;
                 void* ptr = EnetLayer.PB_EXP_AuthorityChangeOp_Serialize(entityId, authChangeOps,

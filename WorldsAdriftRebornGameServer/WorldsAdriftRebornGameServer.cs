@@ -6,7 +6,6 @@ using Bossa.Travellers.Ship;
 using Bossa.Travellers.Utilityslot;
 using Improbable.Collections;
 using Improbable.Corelibrary.Math;
-using Improbable.Corelibrary.Transforms;
 using Improbable.Math;
 using Improbable.Worker;
 using Improbable.Worker.Internal;
@@ -21,6 +20,10 @@ using static WorldsAdriftRebornGameServer.DLLCommunication.EnetLayer;
 
 namespace WorldsAdriftRebornGameServer
 {
+    using System;
+    using System.Collections.Generic;
+
+
     internal class WorldsAdriftRebornGameServer
     {
         private static bool keepRunning = true;
@@ -46,7 +49,26 @@ namespace WorldsAdriftRebornGameServer
 
         private static readonly EnetLayer.ENet_Poll_Callback callbackC = new EnetLayer.ENet_Poll_Callback(OnNewClientConnected);
         private static readonly EnetLayer.ENet_Poll_Callback callbackD = new EnetLayer.ENet_Poll_Callback(OnClientDisconnected);
-        private static readonly System.Collections.Generic.List<uint> authoritativeComponents = new System.Collections.Generic.List<uint>{ 8050, 8051, 6908, 1260, 1097, 1003, 1241, 1082, 190602};
+        private static readonly System.Collections.Generic.List<uint> authoritativeComponents = new System.Collections.Generic.List<uint>
+        {
+            // Authority is needed for a client to inject a writer into a behaviour
+            // Writers are needed as a behaviour will self-disable unless all readers+writers are injected
+            // Please document any additions!
+            // Undocumented:
+            8050, 8051, 6908, 1097, 1003, 1241, 1082, 
+            
+            1260, // SchematicsUnlearnerState | Used by InventoryVisualiser
+            
+            1145, // LogoutState | Used by LogoutBehaviour
+            
+            1093, // RespawnClientState | Used by RespawnVisualizer
+            1072, // CharacterControlsData | Used by RespawnVisualizer
+            
+            1073, // ClientAuthoritativePlayerState | Used by ClientAuthoritativePlayerMovement
+            190602, // TransformState
+            
+            1098, // RopeControlPoints | Used by RopeObserver
+        };
         private static System.Collections.Generic.List<long> playerEntityIDs = new System.Collections.Generic.List<long>();
 
         private static long nextEntityId = 1;
@@ -95,7 +117,7 @@ namespace WorldsAdriftRebornGameServer
                 keepRunning = false;
             };
 
-            DistanceReplicationRegistry.RegisterEntities();
+            OfflineReplicationRegistry.RegisterEntities();
             var hack = new FuelGaugeState.Data(100f, 100f);  // required or ComponentDatabase won't be initialized properly
             Console.WriteLine($"INFO - Component Handles Registered: {ComponentUpdateManager.Instance != null} {ComponentsManager.Instance != null} | {ComponentDatabase.MetaclassMap.Count} Components");
             
@@ -137,6 +159,12 @@ namespace WorldsAdriftRebornGameServer
                 o => SendOPHelper.SendAssetLoadRequestOP(
                     (ENetPeerHandle)o, "notNeeded?", "WallSegment", "notNeeded?")
             ));
+            
+            syncSteps.Add(new SyncStep(
+                GameState.NextStateRequirement.ASSET_LOADED_RESPONSE,
+                o => SendOPHelper.SendAssetLoadRequestOP(
+                    (ENetPeerHandle)o, "notNeeded?", "WeatherCell", "notNeeded?")
+            ));
 
             syncSteps.Add(new SyncStep(
                 GameState.NextStateRequirement.ASSET_LOADED_RESPONSE,
@@ -174,7 +202,7 @@ namespace WorldsAdriftRebornGameServer
                     }
                 }
             ));
-
+            
             syncSteps.Add(new SyncStep(
                 GameState.NextStateRequirement.ADDED_ENTITY_RESPONSE,
                 o =>
@@ -183,6 +211,15 @@ namespace WorldsAdriftRebornGameServer
 
                     var playerId = NextEntityId;
                     playerEntityIDs.Add(playerId);
+                    
+                    // AddComponent(playerId, new TransformState.Data(TransformState_Handler.CreateFixedVector(613.58325f, 141.59912f, -36.614258f),
+                    //     new Quaternion32(1023),
+                    //     null,
+                    //     Vector3d.ZERO, 
+                    //     Vector3f.ZERO, 
+                    //     Vector3f.ZERO, 
+                    //     false, 1000
+                    // ));
 
                     if (!SendOPHelper.SendAddEntityOP(
                             (ENetPeerHandle)o,

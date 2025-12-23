@@ -85,13 +85,13 @@ namespace WorldsAdriftServer.Objects.CharacterSelection
         public string Name { get; set; }
         public string Server { get; set; }
         public string serverIdentifier { get; set; }
-        public Dictionary<CharacterSlotType, ItemData> Cosmetics { get; set; }
+        public Dictionary<CharacterSlotType, ItemData>? Cosmetics { get; set; }
         public CharacterUniversalColors UniversalColors { get; set; }
         public bool isMale { get; set; }
         public bool seenIntro { get; set; }
         public bool skippedTutorial { get; set; }
 
-        public CharacterCreationData(int id, string characterUid, string name, string server, string serverIdentifier, Dictionary<CharacterSlotType, ItemData> cosmetics, CharacterUniversalColors universalColors, bool isMale, bool seenIntro, bool skippedTutorial )
+        public CharacterCreationData(int id, string characterUid, string name, string server, string serverIdentifier, Dictionary<CharacterSlotType, ItemData>? cosmetics, CharacterUniversalColors universalColors, bool isMale, bool seenIntro, bool skippedTutorial )
         {
             Id = id;
             this.characterUid = characterUid;

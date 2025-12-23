@@ -15,6 +15,7 @@ namespace WorldsAdriftServer.Handlers.Authentication
 
                 if (reqToken != null)
                 {
+                    Console.WriteLine($"User Credentials:\nApp ID: {reqToken.appId}\nUserKey: {reqToken.steamCredential.userKey}\nSecret: {reqToken.steamCredential.secret}\nPlatform ID: {reqToken.steamCredential.platformId}");
                     SteamAuthResponseToken respToken = new SteamAuthResponseToken("superCoolToken", "777", "999", true);
                     respToken.screenName = playerName;
 
