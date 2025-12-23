@@ -107,7 +107,7 @@ namespace WorldsAdriftRebornGameServer.Game.Components.Update
                                 1000
                             )
                         }
-                    ));
+                    , 7500f));
                 }
             }
 

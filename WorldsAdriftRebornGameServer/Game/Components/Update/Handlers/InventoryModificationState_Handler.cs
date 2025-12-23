@@ -34,16 +34,24 @@ namespace WorldsAdriftRebornGameServer.Game.Components.Update.Handlers
                 PlayerPropertiesState.Update storedPlayerPropertiesState = (PlayerPropertiesState.Update)((PlayerPropertiesState.Data)ClientObjects.Instance.Dereference(GameState.Instance.ComponentMap[player][entityId][1088])).ToUpdate();
                 InventoryState.Update storedInventoryState = (InventoryState.Update)((InventoryState.Data)ClientObjects.Instance.Dereference(GameState.Instance.ComponentMap[player][entityId][1081])).ToUpdate();
 
+                var equipInfo = clientComponentUpdate.equipWearable[j];
                 storedWearableUtilsState.SetItemIds(new Improbable.Collections.List<int> { clientComponentUpdate.equipWearable[j].itemId }).SetHealths(new Improbable.Collections.List<float> { 100f }).SetActive(new Improbable.Collections.List<bool> { true });
-                for (int k = 0; k < storedInventoryState.inventoryList.Value.Count; k++)
+                var targetInventory = equipInfo.isLockboxItem
+                    ? storedInventoryState.lockBoxItems.Value
+                    : storedInventoryState.inventoryList.Value;
+                for (int k = 0; k < targetInventory.Count; k++)
                 {
-                    if (storedInventoryState.inventoryList.Value[k].itemId == clientComponentUpdate.equipWearable[j].itemId)
+                    if (targetInventory[k].itemId !=
+                        clientComponentUpdate.equipWearable[j].itemId)
                     {
-                        ScalaSlottedInventoryItem modifiedItem = storedInventoryState.inventoryList.Value[k];
-                        modifiedItem.slotType = ItemHelper.GetItem(storedInventoryState.inventoryList.Value[k].itemTypeId).characterSlot;
-
-                        storedInventoryState.inventoryList.Value[k] = modifiedItem;
+                        continue;
                     }
+
+                    ScalaSlottedInventoryItem modifiedItem = targetInventory[k];
+                    modifiedItem.slotType = ItemHelper.GetItem(targetInventory[k].itemTypeId).characterSlot;
+                    Console.WriteLine($"Updated slot of {modifiedItem.itemTypeId} to {modifiedItem.slotType}");
+
+                    targetInventory[k] = modifiedItem;
                 }
 
                 // NOTE: its absolutely crucial to send 1081 before 1088, this is because 1081 sets the item slotType to something meaningfull while 1088 expects some meaningful value if it should be equipped
