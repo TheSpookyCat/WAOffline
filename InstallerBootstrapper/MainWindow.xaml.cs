@@ -2,7 +2,7 @@ using System.Collections.Specialized;
 using System.Runtime.Versioning;
 using System.Windows;
 using System.Windows.Input;
-using InstallerLauncher.Infrastructure.State;
+using InstallerBootstrapper.Infrastructure.State;
 
 namespace InstallerBootstrapper;
 

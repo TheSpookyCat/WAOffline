@@ -1,11 +1,9 @@
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Security.Cryptography;
 
-namespace InstallerLauncher.Infrastructure.Installation;
+namespace InstallerBootstrapper.Infrastructure.Installation;
 
 public static class PayloadLayout
 {

@@ -11,8 +11,8 @@ using System.Windows;
 using Microsoft.Win32;
 using System.Windows.Media;
 using System.Windows.Input;
-using InstallerLauncher.Infrastructure.Installation;
-using InstallerLauncher.Infrastructure.State;
+using InstallerBootstrapper.Infrastructure.Installation;
+using InstallerBootstrapper.Infrastructure.State;
 
 namespace InstallerBootstrapper;
 

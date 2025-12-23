@@ -14,7 +14,7 @@
     <StartupObject>InstallerBootstrapper.Program</StartupObject>
     <ApplicationIcon>assets\app.ico</ApplicationIcon>
     <AssemblyName>WorldsAdriftOffline</AssemblyName>
-    <RootNamespace>WorldsAdriftOffline</RootNamespace>
+    <RootNamespace>InstallerBootstrapper</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="PayloadData.zip" />

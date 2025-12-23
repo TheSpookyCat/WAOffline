@@ -1,8 +1,8 @@
 using System.IO;
 using System.Text.Json;
-using InstallerLauncher.Infrastructure.Logging;
+using InstallerBootstrapper.Infrastructure.Logging;
 
-namespace InstallerLauncher.Infrastructure.State;
+namespace InstallerBootstrapper.Infrastructure.State;
 
 public sealed class InstallStateStore
 {

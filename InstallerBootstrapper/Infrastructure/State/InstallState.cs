@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace InstallerLauncher.Infrastructure.State;
+namespace InstallerBootstrapper.Infrastructure.State;
 
 public sealed record InstallState
 {

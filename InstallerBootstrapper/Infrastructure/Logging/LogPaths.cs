@@ -1,7 +1,7 @@
 using System.IO;
 using System.Runtime.Versioning;
 
-namespace InstallerLauncher.Infrastructure.Logging;
+namespace InstallerBootstrapper.Infrastructure.Logging;
 
 [SupportedOSPlatform("windows")]
 public static class LogPaths
