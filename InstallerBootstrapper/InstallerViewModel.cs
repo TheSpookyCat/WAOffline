@@ -5,10 +5,8 @@ using System.IO;
 using System.IO.Compression;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
-using System.Linq;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Win32;
 using System.Windows.Media;
@@ -744,6 +742,9 @@ public sealed class InstallerViewModel : INotifyPropertyChanged
 
         string[] dlls =
         {
+            "Assembly-CSharp.dll",
+            "UnityEngine.dll",
+            "Newtonsoft.Json.dll",
             "Improbable.WorkerSdkCsharp.dll",
             "Improbable.WorkerSdkCsharp.Framework.dll",
             "Generated.Code.dll",
