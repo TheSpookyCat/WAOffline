@@ -33,7 +33,7 @@
             <HintPath>$(WorldsAdriftGameDir)\UnityClient@Windows_Data\Managed\Assembly-CSharp.dll</HintPath>
         </Reference>
         <Reference Include="Newtonsoft.Json">
-          <HintPath>..\.installation\UnityClient@Windows_Data\Managed\Newtonsoft.Json.dll</HintPath>
+          <HintPath>$(WorldsAdriftGameDir)\UnityClient@Windows_Data\Managed\Newtonsoft.Json.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine">
             <HintPath>$(WorldsAdriftGameDir)\UnityClient@Windows_Data\Managed\UnityEngine.dll</HintPath>
@@ -56,7 +56,7 @@
     <Target Name="StripPrivateAssemblies" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
         <ItemGroup>
             <PrivateAssemblies Include="
-      Assembly-CSharp.dll
+      Assembly-CSharp.dll;
       Improbable.WorkerSdkCsharp.dll;
       Improbable.WorkerSdkCsharp.Framework.dll;
       Generated.Code.dll;
