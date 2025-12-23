@@ -1,4 +1,5 @@
-﻿using Bossa.Travellers.DevConsole;
+﻿using System.Reflection;
+using Bossa.Travellers.DevConsole;
 using HarmonyLib;
 using JetBrains.Annotations;
 using Travellers.UI.HUDMessaging;
@@ -9,10 +10,11 @@ namespace WorldsAdriftReborn.Patching.InGameChanges
     [HarmonyPatch(typeof(PlayerNoClipController), "FixedUpdate")]
     public static class Noclip_Patch
     {
+        private static readonly MethodInfo CheckMethod = AccessTools.Method(typeof(PlayerNoClipController), "CheckForNoClip");
         private static bool _pWasDown;
 
         [HarmonyPostfix, UsedImplicitly]
-        public static void Postfix( PlayerNoClipController __instance )
+        public static void Postfix( PlayerNoClipController __instance, ref bool ____pureNoClipToggle )
         {
             bool pDown = Input.GetKey(KeyCode.P);
             if (!pDown || _pWasDown)
@@ -22,19 +24,10 @@ namespace WorldsAdriftReborn.Patching.InGameChanges
             }
 
             _pWasDown = true;
-            var newValue = !(bool)AccessTools.Field(typeof(PlayerNoClipController), "_pureNoClipToggle")
-                                           .GetValue(__instance);
+            ____pureNoClipToggle = !____pureNoClipToggle;
+            CheckMethod.Invoke(__instance, null);
 
-            // Toggle noclip
-            AccessTools.Field(typeof(PlayerNoClipController), "_pureNoClipToggle")
-                       .SetValue(__instance,
-                           newValue);
-
-            // Apply immediately
-            AccessTools.Method(typeof(PlayerNoClipController), "CheckForNoClip")
-                       .Invoke(__instance, null);
-
-            OSDMessage.SendMessage("No clip set to: " + (newValue ? "True" : "False"));
+            OSDMessage.SendMessage("No clip set to: " + (____pureNoClipToggle ? "True" : "False"));
         }
     }
 }
