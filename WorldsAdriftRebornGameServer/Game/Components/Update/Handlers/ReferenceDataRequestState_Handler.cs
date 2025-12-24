@@ -54,7 +54,7 @@ namespace WorldsAdriftRebornGameServer.Game.Components.Update.Handlers
                 newRefData.AddSteamInvBundlesDescriptionsSent( 
                     new SendSteamInventoryBundlesDescriptions(bundleDesc, doComp ? Compress(JsonSerializer.Serialize(bundleDesc)) : null));
                 var schematicData =
-                    "{\"glider\":{\"SchematicType\":0,\"uUID\":\"glider\",\"schematicId\":\"glider\",\"referenceData\":\"glider\",\"category\":\"Personal\",\"title\":\"cool glider\",\"iconId\":\"crafted items/3x4_glider\",\"description\":\"wolo\",\"timeToCraft\":10,\"amountToCraft\":1,\"itemType\":\"glider\",\"craftingRequirements\":[],\"baseHp\":100.0,\"baseStats\":{},\"rarity\":1,\"cipherSlots\":[],\"unlearnable\":true,\"modules\":{},\"hullData\":\"\"}}";
+                    "{\"glider\":{\"SchematicType\":0,\"uUID\":\"glider\",\"schematicId\":\"glider\",\"referenceData\":\"glider\",\"category\":\"Personal\",\"title\":\"cool glider\",\"iconId\":\"crafted items/3x4_glider\",\"description\":\"wolo\",\"timeToCraft\":10,\"amountToCraft\":1,\"itemType\":\"glider\",\"craftingRequirements\":[{\"customizationCategory\": null,\"component\": \"Frame\",\"description\": \"Metal\",\"name\": \"metal\",\"iconId\": \"item_metal_large\",\"amountRequired\": 50,\"id\": 0}],\"baseHp\":100.0,\"baseStats\":{},\"rarity\":1,\"cipherSlots\":[],\"unlearnable\":true,\"modules\":{},\"hullData\":\"\"}}";
                 newRefData.SetSchematicsData(schematicData);
                 newRefData.AddSchematicDataSent(new SendSchematicData(schematicData, doComp ? Compress(schematicData) : null));
 
