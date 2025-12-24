@@ -1,6 +1,6 @@
 ## Introduction
 
-**Worlds Adrift: Offline** is a player-focused distribution of the current playable state of **Worlds Adrift: Reborn**, packaged with an installer and launcher for easy local play.
+**Worlds Adrift: Offline** is a player-focused fork of **Worlds Adrift: Reborn**, packaged with an installer and launcher for easy local play.
 
 It is based on the Reborn project but released separately to make the game immediately accessible without MMO infrastructure or dedicated servers. While **Worlds Adrift: Reborn** continues to focus on long-term multiplayer restoration, **Offline** exists to let players jump in and play right now.
 The project is maintained separately, with a clean commit history to support its narrower scope and simpler release model.

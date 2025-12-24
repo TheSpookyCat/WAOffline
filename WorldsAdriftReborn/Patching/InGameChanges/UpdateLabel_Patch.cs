@@ -8,7 +8,7 @@ namespace WorldsAdriftReborn.Patching.InGameChanges
     [HarmonyPatch(typeof(ProductionBuildState), "CreateBuildNumber")]
     public static class UpdateLabel_Patch
     {
-        private const string VERSION = "v1.0.0ab";
+        private const string VERSION = "v1.0.0b";
         
         [HarmonyPrefix, UsedImplicitly]
         public static bool Override( ref string __result )
