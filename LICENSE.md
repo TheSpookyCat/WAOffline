@@ -1,5 +1,7 @@
 ﻿NO LICENSE
+
 This repository does not currently have a license. 
+
 All rights are reserved by the respective contributors.
 
 A future license may be applied once contributor rights are clarified.

@@ -3,14 +3,17 @@
 **Worlds Adrift: Offline** is a player-focused distribution of the current playable state of **Worlds Adrift: Reborn**, packaged with an installer and launcher for easy local play.
 
 It is based on the Reborn project but released separately to make the game immediately accessible without MMO infrastructure or dedicated servers. While **Worlds Adrift: Reborn** continues to focus on long-term multiplayer restoration, **Offline** exists to let players jump in and play right now.
-The project is maintained independently, with a clean commit history to support its narrower scope and simpler release model.
+The project is maintained separately, with a clean commit history to support its narrower scope and simpler release model.
+
+The original repository and commit used for this fork can be found at [WAReborn/WorldsAdriftReborn](https://github.com/WAReborn/WorldsAdriftReborn/commit/a2702f825c7eb471a43a05e0ba2c9c5e4a055bf8).
 
 ## Details
 
 The current version allows you to:
 - Explore the entire game world as it existed at shutdown
-- Use the glider
-- Interact with basic entities and items
+- Noclip from island to island (`P`)
+- Create, save, and delete multiple characters
+- Equip/unequip clothing and utility items
 
 This project does **not** aim to recreate the MMO experience, shared worlds, or live services. Its purpose is to preserve the feel of Worlds Adrift in a form that is easy to install, run, and maintain for local play.
 
